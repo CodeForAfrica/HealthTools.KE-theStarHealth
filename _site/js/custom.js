@@ -1,8 +1,8 @@
 
 TAGS = []
-$('#embed_1_modal').html(modal_template('Dodgy Doctors'))
-$('#embed_2_modal').html(modal_template('Am I Covered'))
-$('#embed_3_modal').html(modal_template('Nearest specialist'))
+$('#embed_1_modal').html(modal_template(1, 'Dodgy Doctors'))
+$('#embed_2_modal').html(modal_template(2, 'Am I Covered'))
+$('#embed_3_modal').html(modal_template(3, 'Nearest specialist'))
 
 function get_feed() {
     //Retrieves the feed from the star
@@ -40,9 +40,9 @@ function get_feed() {
 
             //Accordions
             markup = ''
-            for (var i = 1; i < 6; i++) {
+            for (var i = 1; i < 7; i++) {
                 n = news[i]
-                markup += accordion_template(n.id, n.title, n.thumb , n.description, n.link)
+                markup += accordion_template(n.id, n.title, n.thumb , n.description, n.link, i)
             }
             $('.accordions').html(markup)
 
@@ -51,13 +51,13 @@ function get_feed() {
             markup = '<tr><td><a  class="filter_feed" data-tag="All">All</a></td></tr>';
             for (var i = 0; i < 10; i++) {
                 t = TAGS[i]
-                markup += '<tr><td><a class="filter_feed" data-tag="'+ t[0] +'">"'+ t[0] +' ('+ t[1] +')</td></tr>';
+                markup += '<tr><td><a class="filter_feed" data-tag="'+ t[0] +'">'+ t[0] +' ('+ t[1] +')</td></tr>';
             }
             $('.filters').html(markup);
 
             //More news section
             markup = '';
-            for (var i = 2; i < 11; i++) {
+            for (var i = 7; i < 15; i++) {
                 node = news[i]
                 markup += more_news_template(node)
             }
@@ -142,13 +142,16 @@ function get_story_so_far(nodes, theme, id) {
 }
 
 
-function accordion_template(id, title, thumb , description, link) {
+function accordion_template(id, title, thumb , description, link, i) {
     markup = '<div class="accordion" id="accordion2">';
     markup += '<div class="accordion-group">';
     markup += '<div class="accordion-heading"><i class="fa fa-chevron-circle-down"></i>';
     markup += '<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#'+ id +'">'+  title + '</a>';
     markup += '</div>';
-    markup += '<div id="'+ id +'" class="accordion-body in collapse" style="height: auto;">';
+    if (i == 1)
+        markup += '<div id="'+ id +'" class="accordion-body in collapse" style="height: auto;">';
+    else
+        markup += '<div id="'+ id +'" class="accordion-body collapse" style="height: 0px;">';
     markup += '<div class="accordion-inner">';
     markup += '<p><img src="'+ thumb +'" width="100%"><br/> '+ description +' <br/><a href="' + link + '" target="_blank">More</a></p>';
     markup += '</div></div></div></div>';
@@ -158,15 +161,15 @@ function accordion_template(id, title, thumb , description, link) {
 function more_news_template(node, id) {
     markup = "<div><h4><a href='" + node['link'] + "' target='_blank'>" + node['title'] + "</a></h4>";
     if (node['thumb'] != null) {
-        markup += "<img src='" + node['thumb'] +"' style='width:100px;float:left; margin:10px'><br />";
+        markup += "<img src='" + node['thumb'] +"' style='width:100px;float:left; margin:10px'/><br/>";
     }
-    markup += "<div>" + node['description'] + "</div><br />";
-    markup += '<div class="article-meta">Posted ' + node['timestamp'] + ' | ' + node['author'];
+    markup += "<div>" + strip_html(node['description']) + "</div><br />";
+    markup += '<div class="article-meta">Posted ' + node['timestamp'] + ' | ' + (node['author']);
     markup += "</div><hr/><div>";
     return markup
 }
 
-function modal_template(app) {
+function modal_template(i, app) {
     markup = '<div class="modal-dialog" role="document">';
     markup += '<div class="modal-content">';
     markup += '<div class="modal-header">';
@@ -176,12 +179,13 @@ function modal_template(app) {
     markup += '<div class="modal-body">';
     markup += 'Copy and paste the following code inside within HTML code';
     markup += '<textarea class="form-control">';
-    markup += '<iframe src="http://health.the-star.co.ke/?embed=" frameborder="0" scrolling="no" height="400px" width="100%"></iframe>';
+    markup += '<iframe src="http://health.the-star.co.ke/?embed='+ i +'" frameborder="0" scrolling="no" height="400px" width="100%"></iframe>';
     markup += '</textarea>';
     markup += '</div>';
     markup += '<div class="modal-footer">';
     markup += '<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>';
     markup += '</div></div></div>';
+    return markup
 }
 
 function sortProperties(obj) {
@@ -196,6 +200,16 @@ function sortProperties(obj) {
         return b[1]-a[1]; // compare numbers
     });
     return sortable; // array in format [ [ key1, val1 ], [ key2, val2 ], ... ]
+}
+
+function strip_html(html) {
+   var tmp = document.createElement("DIV");
+   tmp.innerHTML = html;
+   return tmp.textContent || tmp.innerText || "";
+}
+
+function to_title_case(text) {
+    return text.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 }
 
 get_feed()
