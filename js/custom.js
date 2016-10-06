@@ -11,59 +11,73 @@ function get_feed() {
         method: "GET",
         url: feed_url,
         success: (function( data ) {
-            TAGS = data.tags
-            formatted_nodes = []
-            //Prepare all the nodes in a format we prefer
-            for (var i = 0; i < data.nodes.length; i++) {
-                node = data.nodes[i].node
-                node = format_node(node)
-                formatted_nodes.push(node)
-            }
-            //The featured news are the formatted nodes that have thumbnails i.e at least one image attached
-            news = []
-            first_item = true
-            for (n in formatted_nodes) {
-                node = formatted_nodes[n]
-                if (node['thumb'] != null) {
-                    if ( first_item ) {
-                        node['related_articles'] = get_story_so_far(formatted_nodes, node['theme'], node['id'])
-                    }
-                    news.push(node);
-                    first_item = false;
-                }
-            }
-
-            //Featured section
-            $('.story_title').html('<a href="' + news[0]['link'] + '" target="_blank">' + news[0]['title'] + '</a>')
-            $('.backstory_desc').html(news[0]['description'])
-            $('.featured_thumb_section').html('<img src="' + news[0]['thumb'] + '" alt="" class="featured_thumb">')
-
-            //Accordions
-            markup = ''
-            for (var i = 1; i < 7; i++) {
-                n = news[i]
-                markup += accordion_template(n.id, n.title, n.thumb , n.description, n.link, i)
-            }
-            $('.accordions').html(markup)
-
-            //Display tags
-            TAGS = sortProperties(TAGS); // Arrange by descending order
-            markup = '<tr><td><a  class="filter_feed" data-tag="All">All</a></td></tr>';
-            for (var i = 0; i < 10; i++) {
-                t = TAGS[i]
-                markup += '<tr><td><a class="filter_feed" data-tag="'+ t[0] +'">'+ t[0] +' ('+ t[1] +')</td></tr>';
-            }
-            $('.filters').html(markup);
-
-            //More news section
-            markup = '';
-            for (var i = 7; i < 15; i++) {
-                node = news[i]
-                markup += more_news_template(node)
-            }
-            $('.more_news').html(markup);
+            prepare_data(data)
         })
     })
+}
+
+function prepare_data(data) {
+    TAGS = data.tags
+    formatted_nodes = []
+    //Prepare all the nodes in a format we prefer
+    for (var i = 0; i < data.nodes.length; i++) {
+        node = data.nodes[i].node
+        node = format_node(node)
+        formatted_nodes.push(node)
+    }
+    //The featured news are the formatted nodes that have thumbnails i.e at least one image attached
+    news = []
+    first_item = true
+    for (n in formatted_nodes) {
+        node = formatted_nodes[n]
+        if (node['thumb'] != null) {
+            if ( first_item ) {
+                node['related_articles'] = get_story_so_far(formatted_nodes, node['theme'], node['id'])
+            }
+            news.push(node);
+            first_item = false;
+        }
+    }
+
+    //Featured section
+    $('.story_title').html('<a href="' + news[0]['link'] + '" target="_blank">' + news[0]['title'] + '</a>')
+    $('.backstory_desc').html(news[0]['description'])
+    $('.featured_thumb_section').html('<img src="' + news[0]['thumb'] + '" alt="" class="featured_thumb">')
+    //related articles
+    markup = ''
+    count = 3
+    for (k in news[0]['related_articles']) {
+        if (count == 0) break;
+        article = news[0]['related_articles'][k];
+        markup += '<li><i class="fa fa-chevron-circle-right"></i> <a href="'+ article['link'] +'" target="_blank">'+ article['title']+ '</a></li>';
+        count -= 1
+    }
+    $('#sofar').html(markup)
+
+    //Accordions
+    markup = ''
+    for (var i = 1; i < 7; i++) {
+        n = news[i]
+        markup += accordion_template(n.id, n.title, n.thumb , n.description, n.link, i)
+    }
+    $('.accordions').html(markup)
+
+    //Display tags
+    TAGS = sortProperties(TAGS); // Arrange by descending order
+    markup = '<tr><td><a  class="filter_feed" data-tag="All">All</a></td></tr>';
+    for (var i = 0; i < 10; i++) {
+        t = TAGS[i]
+        markup += '<tr><td><a class="filter_feed" data-tag="'+ t[0] +'">'+ t[0] +' ('+ t[1] +')</td></tr>';
+    }
+    $('.filters').html(markup);
+
+    //More news section
+    markup = '';
+    for (var i = 7; i < 15; i++) {
+        node = news[i]
+        markup += more_news_template(node)
+    }
+    $('.more_news').html(markup);
 }
 
 function format_node(node) {
@@ -119,26 +133,38 @@ function first_paragraph(text) {
 function get_story_so_far(nodes, theme, id) {
     articles = {}
     total_tags = Object.keys(theme).length;
-
     for (t in theme) {
         //Loop through each theme in the top story
-        for (n in news) {
+        for (n in nodes) {
             //Does this story have this theme?
+            n = nodes[n]
             if (t in n['theme']) {
                 //Check if we have already added this article
-                if (! n['id'] in articles) {
+                if (!(n['id'] in articles)) {
                     //If the news story does not exist in articles add it and set closeness
-                    article[n['id']] = n
-                    article[n['id']]['similar_tags'] = 0
-                    article[n['id']]['relevance'] = 0
+                    articles[n['id']] = n
+                    articles[n['id']]['similar_tags'] = 0
+                    articles[n['id']]['relevance'] = 0
                 }
-                //
-                article[n['id']]['relevance'] = article[n['id']]['relevance'] + n['theme'][t]
+                articles[n['id']]['relevance'] = parseFloat(articles[n['id']]['relevance']) + parseFloat(n['theme'][t])
             }
         }
     }
-    //TODO: Sort articles by closeness
-    return articles
+    //sort articles by closeness or relevance
+    arr = []
+    for (k in articles) {
+        r = articles[k]['relevance']
+        arr.push(r)
+    }
+    v = arr.sort().reverse()
+    v = v.slice(0, 3)
+    relevant_articles = []
+    for (k in articles) {
+        if (v.indexOf(articles[k]['relevance']) ) {
+            relevant_articles[k] = articles[k]
+        }
+    }
+    return relevant_articles
 }
 
 
