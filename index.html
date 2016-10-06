@@ -35,7 +35,7 @@
     <link href='https://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <link rel="shortcut icon" href="ico/starhealth-favicon-32.png">
+    <link rel="shortcut icon" href="http://health.the-star.co.ke/ico/starhealth-favicon-32.png">
 </head>
 
 <body>
@@ -46,14 +46,15 @@
             <div class="region region-top-navigation">
                 <div id="block-menu-menu-radiomenu" class="block block-menu block-odd">
 
-
                     <div class="content">
                         <ul><li class="first leaf classic-105 mid-1819"><a href="http://www.ustream.tv/channel/classic105-kenya?utm_campaign=JPER&amp;utm_medium=FlashPlayer&amp;utm_source=embed" title="" target="_blank">Classic 105</a></li>
                             <li class="leaf east-fm mid-1822"><a href="http://www.ustream.tv/channel/east-fm?utm_campaign=JPER&amp;utm_medium=FlashPlayer&amp;utm_source=embed" title="" target="_blank">East fm</a></li>
                             <li class="leaf kiss-100 mid-1818"><a href="http://www.ustream.tv/channel/kiss100-kenya?utm_campaign=JPER&amp;utm_medium=FlashPlayer&amp;utm_source=embed" title="" target="_blank">Kiss 100</a></li>
                             <li class="leaf radio-jambo mid-1820"><a href="http://www.ustream.tv/channel/radiojambo-fm?utm_campaign=JPER&amp;utm_medium=FlashPlayer&amp;utm_source=embed" title="" target="_blank">Radio Jambo</a></li>
                             <li class="last leaf xfm mid-1821"><a href="http://www.ustream.tv/channel/xfm-kenya?utm_campaign=JPER&amp;utm_medium=FlashPlayer&amp;utm_source=embed" title="" target="_blank">XFM</a></li>
-                        </ul>  </div>
+                        </ul>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -75,26 +76,6 @@
                 <input id="main_search" type="text" class="form-control search" placeholder="Enter text..." aria-describedby="site_search_submit">
                 <span class="input-group-addon" id="site_search_submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
             </div>
-            <script>
-                $(document).ready(function(){
-                    $('#main_search').keypress(function (e) {
-                        if (e.which == 13) {
-                            $('#site_search_submit').click();
-                            return false;    //<---- Add this line
-                        }
-                    });
-
-                    $('#site_search_submit').click(function(){
-
-                        if($('#main_search').val().length == 0){
-                            alert('Please enter a search query!');
-                        }else{
-                            window.location = "http://the-star.co.ke/search/node/" + $('#main_search').val();
-                        }
-
-                    });
-                });
-            </script>
         </div>
     </div>
     <nav class="navbar navbar-default">
@@ -309,41 +290,10 @@
     <div class="row news_feed">
         <div class="col-md-3 sidebar_widget2">
             <div class="row-header"><h3>Major Stories</h3></div>
-            <style type="text/css">
-                .accordion-inner a{
-                    color:#000;
-                }
-            </style>
-
             <div class="accordions"></div>
-
             <br/><br/>
 
             <div class="row-header"><h4>Feed Filters</h4></div>
-            <script type="text/javascript">
-                function filter_feed(section) {
-                    document.getElementById("filtered").innerHTML = "";
-
-                    var file = "/filter_feed";
-
-                    var request =  get_XmlHttp();
-                    document.getElementById("filtered").innerHTML = "";
-
-                    var the_data = 'section='+section;
-
-                    request.open("POST", file, true);
-
-                    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                    request.send(the_data);
-                    document.getElementById("filtered").innerHTML = "<div style='text-align:center'><img src='img/preloader.gif'></div>";
-                    request.onreadystatechange = function() {
-
-                        if (request.readyState == 4) {
-                            document.getElementById("filtered").innerHTML = request.responseText;
-                        }
-                    }
-                }
-            </script>
             <table class="table table-striped feed-filters">
                 <tbody class="filters"></tbody>
             </table>
@@ -355,9 +305,9 @@
             <h6>A round-up of the all the latest health news from theStar <i class="icon-arrow-down" style="margin-left: 10px"></i></h6>
             <br/>
             <div class="more_news"></div>
-            <div class="pagination" style="text-align: center"></div>
+            <div class="pagination"></div>
         </div>
-        s
+
         <div class="col-md-3 sidebar_widget2 links">
             <div class="row-header"><h3>Links</h3></div>
             <p>Download the Star's mobile Apps, eBooks, and other tools.</p>
@@ -683,11 +633,10 @@
         </div>
     </div>
 
-    <div id="embed_1_modal" style="text-align:justify !important;" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div id="embed_2_modal" style="text-align:justify !important;" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div id="embed_3_modal" style="text-align:justify !important;" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-    </div>
+    <div id="embed_1_modal" style="text-align:justify !important;" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+    <div id="embed_2_modal" style="text-align:justify !important;" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+    <div id="embed_3_modal" style="text-align:justify !important;" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+    
 </div>
 
 

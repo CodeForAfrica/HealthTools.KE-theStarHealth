@@ -382,3 +382,6 @@ ul, ol {
 .sms_example{
     text-decoration: underline;
 }
+.accordion-inner a{
+    color:#000;
+}

@@ -240,6 +240,22 @@ function to_title_case(text) {
 
 $(document).ready(function() {
     get_feed(); // fetches all stories and displays them
+
+    $('#main_search').keypress(function (e) {
+        if (e.which == 13) {
+            $('#site_search_submit').click();
+            return false;    //<---- Add this line
+        }
+    });
+
+    $('#site_search_submit').click(function() {
+        if ($('#main_search').val().length == 0) {
+            alert('Please enter a search query!');
+        } else {
+            window.location = "http://the-star.co.ke/search/node/" + $('#main_search').val();
+        }
+    });
+
     try {
         $("#doctorName").autocomplete("getDoctors", {
             selectFirst: false
@@ -403,4 +419,21 @@ function handle_geolocation_query(position){
         $("#hospital_location").css("background", "none");
         $("#hospital_location_sp").css("background", "none");
     }});
+}
+
+function filter_feed(section) {
+    document.getElementById("filtered").innerHTML = "";
+    var file = "/filter_feed";
+    var request =  get_XmlHttp();
+    document.getElementById("filtered").innerHTML = "";
+    var the_data = 'section='+section;
+    request.open("POST", file, true);
+    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    request.send(the_data);
+    document.getElementById("filtered").innerHTML = "<div style='text-align:center'><img src='img/preloader.gif'></div>";
+    request.onreadystatechange = function() {
+        if (request.readyState == 4) {
+            document.getElementById("filtered").innerHTML = request.responseText;
+        }
+    }
 }
