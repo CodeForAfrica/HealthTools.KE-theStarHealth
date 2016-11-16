@@ -256,32 +256,34 @@ $(document).ready(function() {
         }
     });
 
-    try {
-        $("#doctorName").autocomplete("getDoctors", {
-            selectFirst: false
-        });
-
-        $("#grabDetails").click(function(){
-            var name = $("#doctorName").val();
-            $("#dname").html("<h4>Results for: " + name + "</h4>");
-            $("#mybox").html("");
-            $("#loading").show();
-            $.ajax({url:"singleDoctor?q=" + name,success:function(result){
+    $("#grabDetails").click(function(){
+        var name = $("#doctorName").val();
+        $("#dname").html("<h4>Results for: " + name + "</h4>");
+        $("#mybox").html("");
+        $("#loading").show();
+        $.ajax({
+            url:"https://szfs458b3b.execute-api.eu-west-1.amazonaws.com/prod?q=" + name, success:function(result){
                 $("#doctorName").val("");
-                $("#mybox").html(result);
+                str = ''
+                for (var i = 0; i < result.hits.hit.length; i++) {
+                    str += 'Name: ' + result.hits.hit[i].fields.name + '<br>'
+                    str += 'Reg no. :' + result.hits.hit[i].fields.registration_number + '<br>'
+                    str += 'Qualification: ' + result.hits.hit[i].fields.qualification + '<br>'
+                    str += 'Registration date:' + result.hits.hit[i].fields.registration_date + '<br>'
+                    str += '<hr>'
+                }
+                $("#mybox").html(str);
                 $("#loading").hide();
-            }});
+            }
         });
+    });
 
-        //Check if hospital is registered
-        $("#clinicName").autocomplete("getClinics", {
-            matchContains: true,
-            selectFirst: false
-        });
+    //Check if hospital is registered
+    $("#clinicName").autocomplete("getClinics", {
+        matchContains: true,
+        selectFirst: false
+    });
 
-    } catch(err) {
-        console.log(err)
-    }
 
     $("#grabClinicDetails").click(function(){
         var name = $("#clinicName").val();
