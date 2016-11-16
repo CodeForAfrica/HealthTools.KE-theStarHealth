@@ -1,9 +1,8 @@
 body {
-    background-color: #E5E4E3;
-    background-image: url('../img/topbar.jpg');
+    background-color: #eeeeee;
     background-repeat: repeat-x;
     background-position: 0 -5px;
-    font-family: 'Bitter', serif;
+    font-family: "Prelo","Helvetica Neue","Helvetica","Roboto","Arial",sans-serif
 }
 .starter-template {
     padding: 40px 15px;
@@ -14,11 +13,10 @@ spread out top menu items
 */
 .navbar .nav > li {
     text-align: center;
-    background-color: #404041;
     z-index: 10;
 }
 .navbar .nav > li:hover {
-    background-color: #d9534f;
+    background-color: #d32f2f;
 }
 .navbar-nav {
     float: none !important; ;
@@ -36,8 +34,9 @@ spread out top menu items
 }
 .navbar {
     margin-bottom: 5px;
-    background-color: #404041;
+    background-color: #333333;
     border-radius: 0px;
+    border:none;
 }
 .container > .navbar-header, .container-fluid > .navbar-header, .container > .navbar-collapse, .container-fluid > .navbar-collapse {
     margin: 0px !important;
@@ -55,12 +54,10 @@ container fixes
 /*
     Pre-nav header
 */
-.logo{
-    background-color: #0645A5;
-}
 .logo img{
     max-width: 100% !important;
     height: 82px;
+    float: left;
 }
 .date-search{
     float: right;
@@ -70,7 +67,7 @@ container fixes
 Topbar
 */
 #topbar{
-    background-color: #000000;
+    background-color: #212121;
     border-radius: 0;
     border: none;
     margin-bottom: 0;
@@ -92,13 +89,12 @@ Topbar
 #topbar ul > li > a {
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;
-    font-size: 12px;
-    text-transform: uppercase;
+    font-size: 14px;
     padding-bottom: 5px;
     padding-top: 5px;
     padding-right: 9px;
     padding-left: 4px;
-    color: #FECD8B;
+    color: #fbd14e;
     margin-left: 10px;
 }
 #topbar ul > li:last-child {
@@ -114,7 +110,8 @@ Topbar
 }
 .brand_section{
     padding:5px 5px 5px 5px;
-    background: #fff;
+    background: #223d7a;
+    color:#fff;
     margin-left: 0px !important;
     height: 92px;
 }
@@ -274,16 +271,30 @@ Featured Section
     margin: 20px 5px;
 }
 /*footer*/
-#footer {
-    background-color: #184B99;
-}
-#footer {
-    background-color: #184B99;
+.footer_inner {
+    background-color: #223d7a;
     color: #FFFFFF;
-    font-family: 'Open Sans', sans-serif;
     font-weight: 400;
     overflow: hidden;
-    margin-left: 0px !important;;
+    margin-left: 0px !important;
+    height:auto;
+    padding: 10px 0px;
+}
+.footer_inner img {
+    max-height:60px;
+}
+.footer_inner a {
+    color:#fff;
+}
+.footer_inner  li {
+    padding: 7px 0px;
+    list-style:none;
+}
+.footer_inner li a {
+    font-size:16px;
+}
+.footer_inner i {
+    margin-right:10px;
 }
 .credit{
     border-top: 1px solid rgb(226, 226, 226);
@@ -364,6 +375,8 @@ ul, ol {
 #copyright{
     font-size: 0.9em;
     text-align: center;
+    background-color: #223d7a;
+    color: #fff;
 }
 #copyright a {
     color: #FFDD17;
@@ -371,17 +384,31 @@ ul, ol {
 }
 
 .sms-section{
-    color: #bababa;
+    color: #fff;
     min-height: 80px;
     font-size: 0.8em;
 }
 .sms-section img{
     float:left;
-    height: 80px;
+    height: 80px !important;
 }
 .sms_example{
     text-decoration: underline;
 }
 .accordion-inner a{
     color:#000;
+}
+#site_search_submit {
+    background-color: #d32f2f;
+    border: none;
+    color: #fff;
+    border-radius: 0px;
+}
+#main_search {
+    border-radius: 0px;
+}
+.date {
+    color:#fff;
+    padding:0px 5px;
+    float:left;
 }
