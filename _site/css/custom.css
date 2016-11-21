@@ -140,7 +140,7 @@ Topbar
 
 .app{
     background: #fff;
-    height: 260px;
+    height: 290px;
     padding: 1px 15px;
     background-color: #fff;
     transition: box-shadow .25s;
@@ -291,7 +291,11 @@ Featured Section
     list-style:none;
 }
 .footer_inner li a {
-    font-size:16px;
+    font-size:15px;
+}
+.footer_inner li a:hover {
+    text-decoration:none;
+    color:#ffd54f;
 }
 .footer_inner i {
     margin-right:10px;
@@ -415,4 +419,7 @@ ul, ol {
 .pagination {
     display:none;
     padding: 14px 0px 42px;
+}
+#search-type {
+    margin-bottom:10px;
 }

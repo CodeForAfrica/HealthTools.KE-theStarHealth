@@ -4,6 +4,11 @@ $('#embed_1_modal').html(modal_template(1, 'Dodgy Doctors'))
 $('#embed_2_modal').html(modal_template(2, 'Am I Covered'))
 $('#embed_3_modal').html(modal_template(3, 'Nearest specialist'))
 
+$('#search-type').change(function() {
+    s = $(this).val()
+    $('#doctorName').attr('placeholder', 'Start typing ' + s + '\'s name')
+});
+
 function get_feed() {
     //Retrieves the feed from the star
     feed_url = 'https://c6maz9prs8.execute-api.eu-west-1.amazonaws.com/starhealthfeed'
