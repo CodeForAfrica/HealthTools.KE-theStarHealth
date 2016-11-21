@@ -73,11 +73,42 @@ function prepare_data(data) {
 
     //More news section
     markup = '';
-    for (var i = 7; i < 15; i++) {
+    per_page = 6
+    pages = parseInt(news.length / per_page)
+    pstr = '<li><a>«</a></li>'
+    for (var i = 0; i < pages; i++) {
+        if (i == 0) {
+            pstr += '<li class="active"><a>'+ (i + 1) +'</a></li>'
+        } else {
+            pstr += '<li><a>'+ (i + 1) +'</a></li>'
+        }
+    }
+     pstr += '<li><a>»</a></li>'
+    $('.pagination').html(pstr)
+    for (var i = (per_page - 1); i < news.length; i++) {
         node = news[i]
-        markup += more_news_template(node)
+        page = parseInt(((i - 5) / per_page) + 1)
+        markup += more_news_template(node, page)
     }
     $('.more_news').html(markup);
+    for (var i = 2; i <= pages; i++) {
+        $('.page_' + i).css('display','none')
+    }
+    $('.pagination').css('display', 'block')
+    $('.pagination li a').click(function() {
+        page = parseInt($(this).html())
+        if (page == '»') page = pages
+        if (page == '«') page = 1
+        $('.pagination li').removeClass('active')
+        $(this).parent().addClass('active')
+        for (var i = 1; i <= pages; i++) {
+            if (i == page) {
+                $('.page_' + page).css('display','block')
+            } else {
+                $('.page_' + i).css('display','none')
+            }
+        }
+    });
 }
 
 function format_node(node) {
@@ -184,14 +215,14 @@ function accordion_template(id, title, thumb , description, link, i) {
     return markup
 }
 
-function more_news_template(node, id) {
-    markup = "<div><h4><a href='" + node['link'] + "' target='_blank'>" + node['title'] + "</a></h4>";
+function more_news_template(node, page) {
+    markup = "<div class='more-news-item page_"+ page +"'><h4><a href='" + node['link'] + "' target='_blank'>" + node['title'] + "</a></h4>";
     if (node['thumb'] != null) {
         markup += "<img src='" + node['thumb'] +"' style='width:100px;float:left; margin:10px'/><br/>";
     }
     markup += "<div>" + strip_html(node['description']) + "</div><br />";
     markup += '<div class="article-meta">Posted ' + node['timestamp'] + ' | ' + (node['author']);
-    markup += "</div><hr/><div>";
+    markup += "</div><hr/></div>";
     return markup
 }
 
@@ -258,11 +289,18 @@ $(document).ready(function() {
 
     $("#grabDetails").click(function(){
         var name = $("#doctorName").val();
+        var search_type = $('#search-type').val();
+        if (search_type  == 'doctor') {
+            url = "https://szfs458b3b.execute-api.eu-west-1.amazonaws.com/prod?q=" + name
+        } else {
+            url = "https://szfs458b3b.execute-api.eu-west-1.amazonaws.com/prod?q=" + name
+        }
         $("#dname").html("<h4>Results for: " + name + "</h4>");
         $("#mybox").html("");
         $("#loading").show();
         $.ajax({
-            url:"https://szfs458b3b.execute-api.eu-west-1.amazonaws.com/prod?q=" + name, success:function(result){
+            url:url,
+             success:function(result){
                 $("#doctorName").val("");
                 str = ''
                 for (var i = 0; i < result.hits.hit.length; i++) {

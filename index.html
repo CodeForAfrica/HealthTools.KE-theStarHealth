@@ -82,7 +82,7 @@
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="navbar" aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -135,13 +135,17 @@
                     Check to see if your doctor is registered.<br/><small><em>Can't find a name? Send us an email <a href="mailto:starhealth@codeforafrica.org" target="_blank">starhealth@codeforafrica.org</a></em></small>
                 </div>
                 <div class="app_bottom">
-
+                     <select class="form-control" id="search-type">
+                        <option value="doctor">Doctor Search</option>
+                        <option value="nurse">Nurse Search</option>
+                    </select>
                     <input type="text" placeholder="Start typing doctor's name" class="search form-control" id="doctorName" />
-                    <button class='btn btn-primary red_button' href="#myModal" role="button" class="btn" data-toggle="modal" id="grabDetails">
+
+                    <button class='btn btn-primary red_button' href="myModal" role="button" class="btn" data-toggle="modal" id="grabDetails">
                         Search
                     </button>
                     <div class="contribution">
-                        <a href="#embed_1_modal" data-toggle="modal">Embed</a>
+                        <a href="embed_1_modal" data-toggle="modal">Embed</a>
                     </div>
                 </div>
             </div>
@@ -205,12 +209,12 @@
                         <option value="47">West Pokot</option>
                     </select>
 
-                    <button class='btn btn-primary ' href="#myModal" role="button" class="btn" data-toggle="modal" id="grabNHIFDetails">
+                    <button class='btn btn-primary ' href="myModal" role="button" class="btn" data-toggle="modal" id="grabNHIFDetails">
                         Search
                     </button>
                     <div class="contribution">
-                        <a href="#embed_2_modal" data-toggle="modal">Embed </a> |
-                        <a href="#premiumRatesModal" data-toggle="modal" id="whatsMyContribution">What's my contribution?</a>
+                        <a href="embed_2_modal" data-toggle="modal">Embed </a> |
+                        <a href="premiumRatesModal" data-toggle="modal" id="whatsMyContribution">What's my contribution?</a>
                     </div>
                 </div>
             </div>
@@ -225,11 +229,11 @@
                 </div>
                 <div class="app_bottom text-center">
 
-                    <a class='btn btn-primary' href="http://kmhfl.health.go.ke/#/home" target="_blank">
+                    <a class='btn btn-primary' href="http://kmhfl.health.go.ke//home" target="_blank">
                         Visit KHMLF <i class="fa fa-external-link"></i>
                     </a>
                     <div class="contribution">
-                        <a href="#embed_3_modal" data-toggle="modal">Embed</a>
+                        <a href="embed_3_modal" data-toggle="modal">Embed</a>
                     </div>
                 </div>
 
@@ -306,8 +310,11 @@
             <h6>A round-up of the all the latest health news from theStar <i class="icon-arrow-down" style="margin-left: 10px"></i></h6>
             <br/>
             <div class="more_news"></div>
-            <div class="pagination"></div>
+            <center>
+                <ul class="pagination"></ul>
+            </center>
         </div>
+        <br/>
 
         <div class="col-md-3 sidebar_widget2 links">
             <div class="row-header"><h3>Links</h3></div>
@@ -334,7 +341,10 @@
             <!-- <a class="twitter-timeline" href="https://twitter.com/TheStarKenya" data-widget-id="336091571755827200">Tweets by @TheStarKenya</a> -->
             <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
         </div>
+
     </div>
+
+
 
     <footer class="site-footer clearrfix row-fluid" role="contentinfo">
 
@@ -362,23 +372,23 @@
                         <div class="col-md-4">
                             <h4>FOLLOW THE STAR, KENYA</h4>
                             <ul>
-                                <li><a href=""><i class="fa fa-facebook"></i>Facebook</a></li>
-                                <li><a href=""><i class="fa fa-twitter"></i>Twitter</a></li>
-                                <li><a href=""><i class="fa fa-google-plus"></i>G+</a></li>
-                                <li><a href=""><i class="fa fa-instagram"></i>Instagram</a></li>
-                                <li><a href=""><i class="fa fa-youtube"></i>YouTube</a></li>
-                                <li><a href=""><i class="fa fa-rss"></i>RSS</a></li>
+                                <li><a><i class="fa fa-facebook"></i>Facebook</a></li>
+                                <li><a><i class="fa fa-twitter"></i>Twitter</a></li>
+                                <li><a><i class="fa fa-google-plus"></i>G+</a></li>
+                                <li><a><i class="fa fa-instagram"></i>Instagram</a></li>
+                                <li><a><i class="fa fa-youtube"></i>YouTube</a></li>
+                                <li><a><i class="fa fa-rss"></i>RSS</a></li>
                             </ul>
                         </div>
 
                         <div class="col-md-4">
                              <h4>FOLLOW THE STAR, KENYA</h4>
                             <ul>
-                                <li><a href="">Mobile App (Android)</a></li>
-                                <li><a href="">Mobile App (IOS)</a></li>
-                                <li><a href="">The Star Classifieds</a></li>
-                                <li><a href="">The Star Health</a></li>
-                                <li><a href="">The Star, e-paper</a></li>
+                                <li><a>Mobile App (Android)</a></li>
+                                <li><a>Mobile App (IOS)</a></li>
+                                <li><a>The Star Classifieds</a></li>
+                                <li><a>The Star Health</a></li>
+                                <li><a>The Star, e-paper</a></li>
                             </ul>
                         </div>
                     </div>
@@ -389,7 +399,7 @@
                         <div id="block-block-5" class="block block-block block-even">
                             <div class="content">
                                 © The Star. All Rights Reserved
-                                Use of this site constitutes acceptance of our <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a>.
+                                Use of this site constitutes acceptance of our <a>Terms and Conditions</a> and <a>Privacy Policy</a>.
                             </div>
                         </div>
                         <div id="block-block-43" class="block block-block block-odd">
