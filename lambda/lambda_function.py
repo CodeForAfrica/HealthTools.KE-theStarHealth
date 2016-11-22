@@ -1,5 +1,5 @@
-import urllib
-DOCTOR_SEARCH = "https://szfs458b3b.execute-api.eu-west-1.amazonaws.com/prod?"
+import urllib, os
+DOCTOR_SEARCH = os.getenv("DOCTOR_SEARCH")
 
 def lambda_handler(event, context):
     # TODO implement
