@@ -1,7 +1,7 @@
 TAGS = []
-$('#embed_1_modal').html(modal_template(1, 'Dodgy Doctors'))
-$('#embed_2_modal').html(modal_template(2, 'Am I Covered'))
-$('#embed_3_modal').html(modal_template(3, 'Nearest specialist'))
+$('#embed_1_modal').html(modal_template('doctor-nurse-search', 'Dodgy Doctors'))
+$('#embed_2_modal').html(modal_template('nhif-facilities-search', 'Am I Covered'))
+$('#embed_3_modal').html(modal_template('nearest-specialist', 'Nearest specialist'))
 
 $('#search-type').change(function() {
     s = $(this).val()
@@ -243,7 +243,7 @@ function modal_template(i, app) {
     markup += '<div class="modal-body">';
     markup += 'Copy and paste the following code inside within HTML code';
     markup += '<textarea class="form-control">';
-    markup += '<iframe src="http://health.the-star.co.ke/?embed='+ i +'" frameborder="0" scrolling="no" height="400px" width="100%"></iframe>';
+    markup += '<iframe src="'+ window.location.href +'/'+ i +'" frameborder="0" scrolling="no" height="400px" width="100%"></iframe>';
     markup += '</textarea>';
     markup += '</div>';
     markup += '<div class="modal-footer">';
