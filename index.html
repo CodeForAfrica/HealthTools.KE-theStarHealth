@@ -44,7 +44,14 @@
     <header id="topbar">
         <div class="container-fluid">
             <div class="region region-top-navigation">
-                <span class="date"><script>document.write(new Date().toDateString())</script></span>
+                <span class="date">
+                    <script>
+                        var weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+                        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+                        d = new Date()
+                        document.write(weekdays[d.getDay()] + ', ' + months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear() )
+                    </script>
+                </span>
                 <div id="block-menu-menu-radiomenu" class="block block-menu block-odd">
 
                     <div class="content">
@@ -107,7 +114,7 @@
                     <li class="">
                         <a href="http://www.the-star.co.ke/news/opinion_c29661">Opinion</a>
                     </li>
-                    <li class="">
+                    <li class="active">
                         <a href="http://health.the-star.co.ke/">Health</a>
                     </li>
                     <li class="">
@@ -132,7 +139,7 @@
             <div class="app">
                 <h4 class="app_title"><i class="fa fa-user-md"></i>Dodgy Doctors</h4>
                 <div class="app_top">
-                    Check to see if your doctor is registered.<br/><small><em>Can't find a name? Send us an email <a href="mailto:starhealth@codeforafrica.org" target="_blank">starhealth@codeforafrica.org</a></em></small>
+                    Check to see if your doctor/nurse is registered.<br/><small><em>Can't find a name? Send us an email <a href="mailto:starhealth@codeforafrica.org" target="_blank">starhealth@codeforafrica.org</a></em></small>
                 </div>
                 <div class="app_bottom">
                      <select class="form-control" id="search-type">
@@ -141,11 +148,11 @@
                     </select>
                     <input type="text" placeholder="Start typing doctor's name" class="search form-control" id="doctorName" />
 
-                    <button class='btn btn-primary red_button' href="myModal" role="button" class="btn" data-toggle="modal" id="grabDetails">
+                    <button class='btn btn-primary red_button' href="#myModal" role="button" class="btn" data-toggle="modal" id="grabDetails">
                         Search
                     </button>
                     <div class="contribution">
-                        <a href="embed_1_modal" data-toggle="modal">Embed</a>
+                        <a href="#embed_1_modal" data-toggle="modal">Embed</a>
                     </div>
                 </div>
             </div>
@@ -209,12 +216,12 @@
                         <option value="47">West Pokot</option>
                     </select>
 
-                    <button class='btn btn-primary ' href="myModal" role="button" class="btn" data-toggle="modal" id="grabNHIFDetails">
+                    <button class='btn btn-primary ' href="#myModal" role="button" class="btn" data-toggle="modal" id="grabNHIFDetails">
                         Search
                     </button>
                     <div class="contribution">
-                        <a href="embed_2_modal" data-toggle="modal">Embed </a> |
-                        <a href="premiumRatesModal" data-toggle="modal" id="whatsMyContribution">What's my contribution?</a>
+                        <a href="#embed_2_modal" data-toggle="modal">Embed </a> |
+                        <a href="#premiumRatesModal" data-toggle="modal" id="whatsMyContribution">What's my contribution?</a>
                     </div>
                 </div>
             </div>
@@ -233,7 +240,7 @@
                         Visit KHMLF <i class="fa fa-external-link"></i>
                     </a>
                     <div class="contribution">
-                        <a href="embed_3_modal" data-toggle="modal">Embed</a>
+                        <a href="#embed_3_modal" data-toggle="modal">Embed</a>
                     </div>
                 </div>
 
@@ -481,7 +488,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     <h3 id="dname"></h3>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="height:600px;overflow-y:scroll;">
                     <p>
                         <div class="loading" style="text-align:center" id="loading">
                             <img src="img/indicator.gif">

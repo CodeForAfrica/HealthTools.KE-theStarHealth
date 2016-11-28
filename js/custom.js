@@ -1,4 +1,3 @@
-
 TAGS = []
 $('#embed_1_modal').html(modal_template(1, 'Dodgy Doctors'))
 $('#embed_2_modal').html(modal_template(2, 'Am I Covered'))
@@ -101,9 +100,12 @@ function prepare_data(data) {
     }
     $('.pagination').css('display', 'block')
     $('.pagination li a').click(function() {
-        page = parseInt($(this).html())
+        page = $(this).html()
         if (page == '»') page = pages
-        if (page == '«') page = 1
+        else if (page == '«') page = 1
+        else {
+            page = parseInt(page)
+        }
         $('.pagination li').removeClass('active')
         $(this).parent().addClass('active')
         for (var i = 1; i <= pages; i++) {
@@ -283,6 +285,18 @@ $(document).ready(function() {
             return false;    //<---- Add this line
         }
     });
+    $('#income').keypress(function (e) {
+        if (e.which == 13) {
+            $("#calculate").click();
+            return false;
+        }
+    });
+    $('#doctorName').keypress(function (e) {
+        if (e.which == 13) {
+            $("#grabDetails").click();
+            return false;
+        }
+    });
 
     $('#site_search_submit').click(function() {
         if ($('#main_search').val().length == 0) {
@@ -298,22 +312,33 @@ $(document).ready(function() {
         if (search_type  == 'doctor') {
             url = "https://szfs458b3b.execute-api.eu-west-1.amazonaws.com/prod?q=" + name
         } else {
-            url = "https://szfs458b3b.execute-api.eu-west-1.amazonaws.com/prod?q=" + name
+            url = "https://52ien7p95b.execute-api.eu-west-1.amazonaws.com/prod?q=" + name
         }
-        $("#dname").html("<h4>Results for: " + name + "</h4>");
+        $("#dname").html("<h4>Results for " + search_type + " search: " + name + "</h4>");
         $("#mybox").html("");
         $("#loading").show();
         $.ajax({
             url:url,
-             success:function(result){
+             success:function(result) {
                 $("#doctorName").val("");
                 str = ''
-                for (var i = 0; i < result.hits.hit.length; i++) {
-                    str += 'Name: ' + result.hits.hit[i].fields.name + '<br>'
-                    str += 'Reg no. :' + result.hits.hit[i].fields.registration_number + '<br>'
-                    str += 'Qualification: ' + result.hits.hit[i].fields.qualification + '<br>'
-                    str += 'Registration date:' + result.hits.hit[i].fields.registration_date + '<br>'
-                    str += '<hr>'
+                if (search_type == 'doctor') {
+                    for (var i = 0; i < result.hits.hit.length; i++) {
+                        str += 'Name: ' + result.hits.hit[i].fields.name + '<br>'
+                        str += 'Role:Doctor<br>'
+                        str += 'Reg no. :' + result.hits.hit[i].fields.registration_number + '<br>'
+                        str += 'Qualification: ' + result.hits.hit[i].fields.qualification + '<br>'
+                        str += 'Registration date:' + result.hits.hit[i].fields.registration_date + '<br>'
+                        if ( i < result.hits.hit.length - 1) str += '<hr>'
+                    }
+                } else {
+                    for (var i = 0; i < result.hits.hit.length; i++) {
+                        str += 'Name: ' + result.hits.hit[i].fields.name + '<br>'
+                        str += 'Role:Nurse<br>'
+                        str += 'License: ' + result.hits.hit[i].fields.license + '<br>'
+                        str += 'Valid until :' + result.hits.hit[i].fields.valid_until + '<br>'
+                        if ( i < result.hits.hit.length - 1)str += '<hr>'
+                    }
                 }
                 $("#mybox").html(str);
                 $("#loading").hide();
@@ -340,16 +365,22 @@ $(document).ready(function() {
         }});
     });
 
-    $("#grabNHIFDetails").click(function(){
-        var hospital_location_gps = $("#hospital_location_gps").val();
+    $("#grabNHIFDetails").click(function() {
         var hospital_location = $("#county_select option:selected").text();
         var hospital_type = $("#county_select").val();
         $("#dname").html("<h4>"+hospital_location+"</h4>");
         $("#mybox").html("");
         $("#loading").show();
-        $.ajax({url:"nhifcoverage?type=" + hospital_type + "&gps=" + hospital_location_gps + "&address=" + hospital_location,success:function(result){
-            $("#mybox").html(result);
-            $("#hospital_location_gps").val("");
+        url = 'https://t875kgqahj.execute-api.eu-west-1.amazonaws.com/prod?q=' + hospital_location
+        $.ajax({url:url,success:function(result){
+            str = ''
+            for (var i = 0; i < result.hits.hit.length; i++) {
+                    str += 'Name: ' + result.hits.hit[i].fields.name + '<br>'
+                    str += 'Service point: ' + result.hits.hit[i].fields.service_point + '<br>'
+                    str += 'County. :' + result.hits.hit[i].fields.county + '<br>'
+                    str += '<hr>'
+                }
+            $("#mybox").html(str);
             $("#hospital_location").val("");
             $("#loading").hide();
         }});

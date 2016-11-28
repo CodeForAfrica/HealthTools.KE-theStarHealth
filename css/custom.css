@@ -4,9 +4,15 @@ body {
     background-position: 0 -5px;
     font-family: "Prelo","Helvetica Neue","Helvetica","Roboto","Arial",sans-serif
 }
+body.modal-open {
+    overflow: hidden;
+}
 .starter-template {
     padding: 40px 15px;
     text-align: center;
+}
+li {
+    list-style: none;
 }
 /*
 spread out top menu items
@@ -15,7 +21,13 @@ spread out top menu items
     text-align: center;
     z-index: 10;
 }
+.navbar-default .navbar-nav>.active>a {
+    background-color: #d32f2f;
+}
 .navbar .nav > li:hover {
+    background-color: #d32f2f;
+}
+.navbar .nav > li.active {
     background-color: #d32f2f;
 }
 .navbar-nav {
@@ -45,7 +57,7 @@ spread out top menu items
 container fixes
 */
 .container {
-    max-width: 990px;
+    max-width: 1080px;
 }
 .container-fluid {
     padding: 0px !important;
@@ -56,7 +68,7 @@ container fixes
 */
 .logo img{
     max-width: 100% !important;
-    height: 82px;
+    height: 72px;
     float: left;
 }
 .date-search{
@@ -72,6 +84,7 @@ Topbar
     border: none;
     margin-bottom: 0;
     height: 29px;
+    font-size:12px;
 }
 #topbar ul {
     float: right !important;
@@ -89,7 +102,7 @@ Topbar
 #topbar ul > li > a {
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;
-    font-size: 14px;
+    font-size: 12px;
     padding-bottom: 5px;
     padding-top: 5px;
     padding-right: 9px;
@@ -109,11 +122,11 @@ Topbar
     padding-right: 0px !important;
 }
 .brand_section{
-    padding:5px 5px 5px 5px;
+    padding: 15px 5px 0px 0px;
     background: #223d7a;
     color:#fff;
     margin-left: 0px !important;
-    height: 92px;
+    height: 100px;
 }
 @media only screen and (max-width: 990px) {
     .date-search {
@@ -394,7 +407,8 @@ ul, ol {
 }
 .sms-section img{
     float:left;
-    height: 80px !important;
+    height: 70px !important;
+    padding-right:5px;
 }
 .sms_example{
     text-decoration: underline;
@@ -413,7 +427,7 @@ ul, ol {
 }
 .date {
     color:#fff;
-    padding:0px 5px;
+    padding:5px;
     float:left;
 }
 .pagination {
@@ -422,4 +436,12 @@ ul, ol {
 }
 #search-type {
     margin-bottom:10px;
+}
+modal-body {
+    overflow-y: scroll;
+    height: 600px;
+}
+.myContribution{
+    text-align: center;
+    padding: 15px;
 }
