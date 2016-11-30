@@ -1,11 +1,14 @@
 body {
-    background-color: #eeeeee;
+    background-color: #fff;
     background-repeat: repeat-x;
     background-position: 0 -5px;
     font-family: "Prelo","Helvetica Neue","Helvetica","Roboto","Arial",sans-serif
 }
 body.modal-open {
     overflow: hidden;
+}
+a {
+    color:#477dca;
 }
 .starter-template {
     padding: 40px 15px;
@@ -17,28 +20,37 @@ li {
 /*
 spread out top menu items
 */
+.navbar {
+    min-height: 0px;
+    margin-bottom: 0px;
+}
 .navbar .nav > li {
     text-align: center;
     z-index: 10;
+    border-right: 1px solid #fff;
 }
 .navbar-default .navbar-nav>.active>a {
-    background-color: #d32f2f;
+    background-color: #fff;
+    color: #d32f2f;
 }
-.navbar .nav > li:hover {
-    background-color: #d32f2f;
+.navbar .nav > li a:hover {
+    background-color: #fff;
+    color:#d32f2f;
 }
 .navbar .nav > li.active {
-    background-color: #d32f2f;
+    background-color: #fff;
+    color: #d32f2f;
 }
 .navbar-nav {
     float: none !important; ;
 }
 .nav > li > a {
-    min-height: 50px;
-    color: #fff !important;
-    padding: 15px 17px 0px 17px !important;
-    text-transform: uppercase;
-    font-family: "Helvetica Neue","Helvetica","Roboto","Arial",sans-serif;
+    color: #fff;
+    padding: 12px 23px; !important;
+    font-family: "Prelo","Helvetica Neue","Helvetica","Roboto","Arial",sans-serif;
+}
+.navbar-default .navbar-nav>li>a {
+    color:#fff;
 }
 .navbar-collapse {
      padding-right: 0px !important;
@@ -46,19 +58,26 @@ spread out top menu items
 }
 .navbar {
     margin-bottom: 5px;
-    background-color: #333333;
+    background-color: #25408f;
     border-radius: 0px;
-    border:none;
 }
+#navbar {
+    border-top: 1px solid #fff;
+}
+.navbar-default {
+    border:0px;
+}
+.navbar-default .navbar-toggle {
+    border-color: #fff;
+    background-color: #fff;
+}
+
 .container > .navbar-header, .container-fluid > .navbar-header, .container > .navbar-collapse, .container-fluid > .navbar-collapse {
     margin: 0px !important;
 }
 /*
 container fixes
 */
-.container {
-    max-width: 1080px;
-}
 .container-fluid {
     padding: 0px !important;
 }
@@ -79,12 +98,13 @@ container fixes
 Topbar
 */
 #topbar{
-    background-color: #212121;
+    background-color: #fff;
     border-radius: 0;
     border: none;
     margin-bottom: 0;
     height: 29px;
     font-size:12px;
+    color:#25408f;
 }
 #topbar ul {
     float: right !important;
@@ -97,7 +117,7 @@ Topbar
     list-style: none;
     line-height: 27px !important;
 
-    border-right: solid 1px #FECD8B;
+    border-right: solid 1px #25408f;
 }
 #topbar ul > li > a {
     font-family: 'Open Sans', sans-serif;
@@ -107,7 +127,7 @@ Topbar
     padding-top: 5px;
     padding-right: 9px;
     padding-left: 4px;
-    color: #fbd14e;
+    color: #25408f;
     margin-left: 10px;
 }
 #topbar ul > li:last-child {
@@ -123,10 +143,9 @@ Topbar
 }
 .brand_section{
     padding: 15px 5px 0px 0px;
-    background: #223d7a;
+    background-color: #25408f;
     color:#fff;
     margin-left: 0px !important;
-    height: 100px;
 }
 @media only screen and (max-width: 990px) {
     .date-search {
@@ -138,6 +157,9 @@ Topbar
 
     #topbar ul {
         display: none;
+    }
+    .logo img {
+        margin-bottom: 20px;
     }
 }
 /*
@@ -444,4 +466,7 @@ modal-body {
 .myContribution{
     text-align: center;
     padding: 15px;
+}
+.last-item {
+    border:0px !important;
 }
