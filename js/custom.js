@@ -129,7 +129,7 @@ function format_node(node) {
     new_node['similar_tags'] = 0;
 
 //    new_node['link'] = "http://the-star.co.ke/node/" + node.nid;
-    new_node['link'] = "/story?id=" + node.nid;
+    new_node['link'] = "story?id=" + node.nid;
 
     new_node['title'] = node.title;
 
