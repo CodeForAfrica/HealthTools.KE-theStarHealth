@@ -128,13 +128,16 @@ function format_node(node) {
 
     new_node['similar_tags'] = 0;
 
-    new_node['link'] = "http://the-star.co.ke/node/" + node.nid;
+//    new_node['link'] = "http://the-star.co.ke/node/" + node.nid;
+    new_node['link'] = "/story?id=" + node.nid;
 
     new_node['title'] = node.title;
 
     new_node['tags'] = node.sorted_tags;
 
     new_node['description'] = first_paragraph(node.body);
+
+    new_node['body'] = node.body;
 
     new_node['timestamp'] = node.date;
 
