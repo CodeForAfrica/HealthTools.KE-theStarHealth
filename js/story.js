@@ -47,10 +47,22 @@ function display_story(node) {
     $('.story-body').html(node.body)
 }
 
+function get_classifieds() {
+//    feed_url = 'http://www.the-star.co.ke/classifieds/api/html/GetPopularSearches?q=&maxResults=10'
+    feed_url = 'http://www.the-star.co.ke/'
+    $.ajax({
+        method: "GET",
+        url: feed_url,
+        success: (function( data ) {
+            $('.classifieds').$.parseHTML( data )
+        })
+    })
+}
+
 /*Social buttons*/
 
 $(document).ready(function ($) {
-
+//    get_classifieds()
 //  $('.rrssb-buttons').rrssb({
 //    // required:
 //    title: 'This is the email subject and/or tweet text',

@@ -8,6 +8,7 @@ $('#search-type').change(function() {
     $('#doctorName').attr('placeholder', 'Start typing ' + s + '\'s name')
 });
 
+FEED = null;
 function get_feed() {
     //Retrieves the feed from the star
     feed_url = 'https://c6maz9prs8.execute-api.eu-west-1.amazonaws.com/starhealthfeed'
@@ -15,6 +16,7 @@ function get_feed() {
         method: "GET",
         url: feed_url,
         success: (function( data ) {
+            FEED = data
             prepare_data(data)
         })
     })
@@ -44,7 +46,7 @@ function prepare_data(data) {
     }
 
     //Featured section
-    $('.story_title').html('<a href="' + news[0]['link'] + '" target="_blank">' + news[0]['title'] + '</a>')
+    $('.story_title').html('<a href="' + news[0]['link'] + '">' + news[0]['title'] + '</a>')
     $('.backstory_desc').html(news[0]['description'])
     $('.featured_thumb_section').html('<img src="' + news[0]['thumb'] + '" alt="" class="featured_thumb">')
     //related articles
@@ -53,7 +55,7 @@ function prepare_data(data) {
     for (k in news[0]['related_articles']) {
         if (count == 0) break;
         article = news[0]['related_articles'][k];
-        markup += '<li><i class="fa fa-chevron-circle-right"></i> <a href="'+ article['link'] +'" target="_blank">'+ article['title']+ '</a></li>';
+        markup += '<li><i class="fa fa-chevron-circle-right"></i> <a href="'+ article['link'] +'">'+ article['title']+ '</a></li>';
         count -= 1
     }
     $('#sofar').html(markup)
@@ -230,13 +232,13 @@ function accordion_template(id, title, thumb , description, link, i) {
     else
         markup += '<div id="'+ id +'" class="accordion-body collapse" style="height: 0px;">';
     markup += '<div class="accordion-inner">';
-    markup += '<p><img src="'+ thumb +'" width="100%"><br/> '+ description +' <br/><a href="' + link + '" target="_blank">More</a></p>';
+    markup += '<p><img src="'+ thumb +'" width="100%"><br/> '+ description +' <br/><a href="' + link + '">More</a></p>';
     markup += '</div></div></div></div>';
     return markup
 }
 
 function more_news_template(node, page) {
-    markup = "<div class='more-news-item page_"+ page +"'><h4><a href='" + node['link'] + "' target='_blank'>" + node['title'] + "</a></h4>";
+    markup = "<div class='more-news-item page_"+ page +"'><h4><a href='" + node['link'] + "'>" + node['title'] + "</a></h4>";
     if (node['thumb'] != null) {
         markup += "<img src='" + node['thumb'] +"' style='width:100px;float:left; margin:10px'/><br/>";
     }
@@ -256,7 +258,7 @@ function modal_template(i, app) {
     markup += '<div class="modal-body">';
     markup += 'Copy and paste the following code inside within HTML code';
     markup += '<textarea class="form-control">';
-    markup += '<iframe src="'+ window.location.href +'/'+ i +'" frameborder="0" scrolling="no" height="400px" width="100%"></iframe>';
+    markup += '<iframe src="'+ window.location.protocol + '//' + window.location.host + '/' + i +'" frameborder="0" scrolling="no" height="400px" width="100%"></iframe>';
     markup += '</textarea>';
     markup += '</div>';
     markup += '<div class="modal-footer">';
@@ -291,6 +293,10 @@ function to_title_case(text) {
 
 $(document).ready(function() {
     get_feed(); // fetches all stories and displays them
+
+    $('#embed_1_modal').html(modal_template('doctor-nurse-search', 'Dodgy Doctors'))
+    $('#embed_2_modal').html(modal_template('nhif-facilities-search', 'Am I Covered'))
+    $('#embed_3_modal').html(modal_template('nearest-specialist', 'Nearest specialist'))
 
     $('#main_search').keypress(function (e) {
         if (e.which == 13) {

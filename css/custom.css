@@ -553,3 +553,17 @@ modal-body {
 .story .menu li {
     float:right;
 }
+.social-follow span {
+    display:none;
+}
+.social-follow i {
+    color:#616161;
+    font-size: 2.47914em;
+    padding-right: 6px;
+}
+.social-follow i:hover {
+    color:#d32f2f;
+}
+.social-follow {
+    float:left;
+}
