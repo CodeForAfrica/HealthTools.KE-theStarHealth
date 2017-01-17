@@ -355,6 +355,11 @@ footer {
 .footer_inner i {
     margin-right:10px;
 }
+#footer h4 {
+    color:#ffe082;
+    font-size:1em;
+    text-transform:uppercase;
+}
 .credit{
     border-top: 1px solid rgb(226, 226, 226);
     text-align: center;
@@ -441,7 +446,13 @@ ul, ol {
     color: #FFDD17;
     text-decoration: underline;
 }
-
+#copyright-section {
+    color:#424242;
+    text-align:left;
+    background-color:#fff;
+    padding:2px 5px;
+    font-family:"Prelo",sans-serif
+}
 .sms-section{
     color: #fff;
     min-height: 80px;
@@ -513,6 +524,9 @@ modal-body {
 }
 .story-body {
     padding: 15px 0px;
+}
+.story-body p {
+    margin-bottom: 1em;
 }
 .must-read h4 {
     background-color:#d32f2f;

@@ -81,7 +81,22 @@
            </ul>
         </div>
         <div class="story-body"></div>
-        <div class="disqus"></div>
+        <div class="disqus">
+            <div id="disqus_thread"></div>
+            <script>
+                var disqus_config = function () {
+                this.page.url = window.location.href;
+                this.page.identifier = window.location.href;
+                };
+                (function() {
+                    var d = document, s = d.createElement('script');
+                    s.src = 'http://thestarlive.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        </div>
     </div>
     <div class="col-md-4">
         <!-- ads -->

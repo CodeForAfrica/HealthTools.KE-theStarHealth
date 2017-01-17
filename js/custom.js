@@ -118,6 +118,15 @@ function prepare_data(data) {
     });
 }
 
+function slugify(text) {
+    return text.toString().toLowerCase()
+        .replace(/\s+/g, '-')           // Replace spaces with -
+        .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+        .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+        .replace(/^-+/, '')             // Trim - from start of text
+        .replace(/-+$/, '');            // Trim - from end of text
+}
+
 function format_node(node) {
     //rename keys and add missing ones
     new_node = {}
@@ -129,7 +138,8 @@ function format_node(node) {
     new_node['similar_tags'] = 0;
 
 //    new_node['link'] = "http://the-star.co.ke/node/" + node.nid;
-    new_node['link'] = window.location.href + "story?id=" + node.nid;
+//    new_node['link'] = window.location.href + "story?id=" + node.nid;
+    new_node['link'] = window.location.href + "story#" + slugify(node.title);
 
     new_node['title'] = node.title;
 
@@ -314,8 +324,12 @@ $(document).ready(function() {
         var search_type = $('#search-type').val();
         if (search_type  == 'doctor') {
             url = "https://szfs458b3b.execute-api.eu-west-1.amazonaws.com/prod?q=" + name
-        } else {
+        }
+        else if (search_type  == 'nurse') {
             url = "https://52ien7p95b.execute-api.eu-west-1.amazonaws.com/prod?q=" + name
+        } else {
+            //TODO Clinical officers cloudsearch url
+            url = "" + name
         }
         $("#dname").html("<h4>Results for " + search_type + " search: " + name + "</h4>");
         $("#mybox").html("");

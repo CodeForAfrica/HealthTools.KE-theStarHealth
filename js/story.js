@@ -1,5 +1,5 @@
 url = window.location.href
-story_id = url.substring(url.indexOf('=') + 1, (url.length))
+story_slug = url.substring(url.indexOf('#') + 1, (url.length))
 get_feed()
 function get_feed() {
     //Retrieves the feed from the star
@@ -16,16 +16,23 @@ function get_feed() {
 function prepare_data(data) {
     for (var i = 0; i < data.nodes.length; i++) {
         node = data.nodes[i].node
-        if (node.nid == parseInt(story_id)) {
-            console.log(node)
+        if (slugify(node.title) == story_slug) {
             display_story(node)
             break
         }
     }
 }
 
+function slugify(text) {
+    return text.toString().toLowerCase()
+        .replace(/\s+/g, '-')           // Replace spaces with -
+        .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+        .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+        .replace(/^-+/, '')             // Trim - from start of text
+        .replace(/-+$/, '');            // Trim - from end of text
+}
+
 function display_story(node) {
-    console.log(node.thumb)
     $('.title').html(node.title)
     $('.story-date').html(node.date)
     if (node.byline.split('@').length > 1) {
@@ -34,24 +41,23 @@ function display_story(node) {
         author = node.byline
     }
     $('.author').html(author)
-    $('.story-body').html(node.body)
-    $('.author').html(node.author)
     img = node.image
     $('.feature-image').html('<img src="' + img.slice(0, img.indexOf('|ALT|')) + '"/>')
     $('.caption').html(img.slice(img.indexOf('|ALT|') + 5, img.length))
+    $('.story-body').html(node.body)
 }
 
 /*Social buttons*/
 
 $(document).ready(function ($) {
 
-  $('.rrssb-buttons').rrssb({
-    // required:
-    title: 'This is the email subject and/or tweet text',
-    url: 'http://rrssb.ml/',
-
-    // optional:
-    description: 'Longer description used with some providers',
-    emailBody: 'Usually email body is just the description + url, but you can customize it if you want'
-  });
+//  $('.rrssb-buttons').rrssb({
+//    // required:
+//    title: 'This is the email subject and/or tweet text',
+//    url: 'http://rrssb.ml/',
+//
+//    // optional:
+//    description: 'Longer description used with some providers',
+//    emailBody: 'Usually email body is just the description + url, but you can customize it if you want'
+//  });
 });

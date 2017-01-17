@@ -30,7 +30,7 @@
     <![endif]-->
 
     <!-- Custom font -->
-    <link href='http://fonts.googleapis.com/css?family=Vollkorn' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Vollkorn' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -108,10 +108,6 @@
                 </li>
                 <li class="dropdown">
                     <a href="http://www.the-star.co.ke/news/latest-news_c401249" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Latest News</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Devolved Corruption</a></li>
-                        <li><a href="#">Off Beat</a></li>
-                  </ul>
                 </li>
                 <li class="">
                     <a href="http://www.the-star.co.ke/news/national_c29654">Today's Paper</a>
@@ -343,7 +339,22 @@
            </ul>
         </div>
         <div class="story-body"></div>
-        <div class="disqus"></div>
+        <div class="disqus">
+            <div id="disqus_thread"></div>
+            <script>
+                var disqus_config = function () {
+                this.page.url = window.location.href;
+                this.page.identifier = window.location.href;
+                };
+                (function() {
+                    var d = document, s = d.createElement('script');
+                    s.src = 'http://thestarlive.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        </div>
     </div>
     <div class="col-md-4">
         <!-- ads -->
@@ -500,56 +511,58 @@
 
             <div class="col-md-12">
                 <div class="footer_inner">
-                    <div class="col-md-4">
-                        <a href="/">
+                    <div class="col-md-3">
+                        <a href="https://the-star.co.ke">
                             <img src="http://www.the-star.co.ke/sites/all/themes/thestar_theme/logo-big.png"/>
                         </a>
-                        <br clear="all">
                         <br clear="all">
                         <br clear="all">
                         <a href="http://code4kenya.org" target="_blank">
                             <span>Built by </span>
                             <br clear="all">
                             <br clear="all">
-                            <br clear="all">
                             <img src="img/cfk-logo.png">
                         </a>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-3">
+                         <h4>Partner sites</h4>
+                        <ul>
+                            <li><a href="http://classic105.com">Classic 105</a></li>
+                            <li><a href="http://eastfm.com">East FM</a></li>
+                            <li><a href="http://kiss100.co.ke/">Kiss 100</a></li>
+                            <li><a href="http://radiojambo.co.ke/">Radio Jambo</a></li>
+                            <li><a href="http:/mpasho.co.ke/">Mpasho</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
                         <h4>FOLLOW THE STAR, KENYA</h4>
                         <ul>
-                            <li><a><i class="fa fa-facebook-square"></i>Facebook</a></li>
-                            <li><a><i class="fa fa-twitter-square"></i>Twitter</a></li>
-                            <li><a><i class="fa fa-google-plus-square"></i>G+</a></li>
-                            <li><a><i class="fa fa-instagram"></i>Instagram</a></li>
-                            <li><a><i class="fa fa-youtube-square"></i>YouTube</a></li>
-                            <li><a><i class="fa fa-rss-square"></i>RSS</a></li>
+                            <li><a href="https://www.facebook.com/thestarkenya"><i class="fa fa-facebook-square"></i>Facebook</a></li>
+                            <li><a href="https://twitter.com/thestarkenya"><i class="fa fa-twitter-square"></i>Twitter</a></li>
+                            <li><a href="https://plus.google.com/u/0/102746437663153160461"><i class="fa fa-google-plus-square"></i>G+</a></li>
+                            <li><a href="https://instagram.com/thestarkenya"><i class="fa fa-instagram"></i>Instagram</a></li>
+                            <li><a href="https://www.youtube.com/channel/UC-aT2XsRXmTHxnCeUiMNvTw"><i class="fa fa-youtube-square"></i>YouTube</a></li>
+                            <li><a href="//www.the-star.co.ke/taxonomy/term/all/rss.xml"><i class="fa fa-rss-square"></i>RSS</a></li>
                         </ul>
                     </div>
 
-                    <div class="col-md-4">
-                         <h4>FOLLOW THE STAR, KENYA</h4>
+                    <div class="col-md-3">
+                         <h4>Online services</h4>
                         <ul>
-                            <li><a>Mobile App (Android)</a></li>
-                            <li><a>Mobile App (IOS)</a></li>
-                            <li><a>The Star Classifieds</a></li>
-                            <li><a>The Star Health</a></li>
-                            <li><a>The Star, e-paper</a></li>
+                            <li><a href="https://play.google.com/store/apps/details?id=ke.co.thestar.android.news">Mobile App (Android)</a></li>
+                            <li><a href="https://itunes.apple.com/app/the-star-kenya/id951491767">Mobile App (IOS)</a></li>
+                            <li><a href="http://www.starclassifieds.co.ke/">The Star, Classifieds</a></li>
+                            <li><a href="http://health.the-star.co.ke/">The Star, Health</a></li>
+                            <li><a href="http://www.thestarepaper.co.ke/">The Star, e-paper</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-12 text-center" id="copyright"><!-- copyright -->
+            <div class="col-md-12 text-center">
 
                 <div class="region region-footer-bottom">
-                    <div id="block-block-5" class="block block-block block-even">
-                        <div class="content">
-                            © The Star. All Rights Reserved
-                            Use of this site constitutes acceptance of our <a>Terms and Conditions</a> and <a>Privacy Policy</a>.
-                        </div>
-                    </div>
                     <div id="block-block-43" class="block block-block block-odd">
 
 
@@ -616,6 +629,11 @@
         </div><!-- footer-wrapper-->
     </div>
 </footer>
+<div id="copyright-section">
+    <div class="content">
+        © 2017 The Star, Kenya. All Rights Reserved
+    </div>
+</div>
 
 <script src="js/jquery.js"></script>
 <script>
