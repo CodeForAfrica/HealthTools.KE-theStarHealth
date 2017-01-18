@@ -567,3 +567,8 @@ modal-body {
 .social-follow {
     float:left;
 }
+.filter-feed {
+    color:#477dca;
+    text-decoration:underline;
+    cursor:pointer;
+}

@@ -9,6 +9,7 @@ $('#search-type').change(function() {
 });
 
 FEED = null;
+TAGS = null;
 function get_feed() {
     //Retrieves the feed from the star
     feed_url = 'https://c6maz9prs8.execute-api.eu-west-1.amazonaws.com/starhealthfeed'
@@ -16,14 +17,15 @@ function get_feed() {
         method: "GET",
         url: feed_url,
         success: (function( data ) {
-            FEED = data
-            prepare_data(data)
+            FEED = prepare_data(data);
+            TAGS = data.tags;
+            show_data(FEED);
+            show_tags();
         })
     })
 }
 
 function prepare_data(data) {
-    TAGS = data.tags
     formatted_nodes = []
     //Prepare all the nodes in a format we prefer
     for (var i = 0; i < data.nodes.length; i++) {
@@ -31,11 +33,16 @@ function prepare_data(data) {
         node = format_node(node)
         formatted_nodes.push(node)
     }
+    return formatted_nodes
+}
+
+function show_data(data) {
     //The featured news are the formatted nodes that have thumbnails i.e at least one image attached
     news = []
     first_item = true
     for (n in formatted_nodes) {
         node = formatted_nodes[n]
+        tags = node['tags']
         if (node['thumb'] != null) {
             if ( first_item ) {
                 node['related_articles'] = get_story_so_far(formatted_nodes, node['theme'], node['id'])
@@ -62,46 +69,75 @@ function prepare_data(data) {
 
     //Accordions
     markup = ''
-    for (var i = 1; i < 7; i++) {
+    i = 1
+    while (i < 7) {
         n = news[i]
         markup += accordion_template(n.id, n.title, n.thumb , n.description, n.link, i)
+        i++
     }
     $('.accordions').html(markup)
 
+    display_more_news_section(news, 5);
+}
+
+function show_tags() {
     //Display tags
     TAGS = sortProperties(TAGS); // Arrange by descending order
-    markup = '<tr><td><a  class="filter_feed" data-tag="All">All</a></td></tr>';
+    markup = '<tr><td><span class="filter-feed" data-tag="All">All</span></td></tr>';
     for (var i = 0; i < 10; i++) {
         t = TAGS[i]
-        markup += '<tr><td><a class="filter_feed" data-tag="'+ t[0] +'">'+ t[0] +' ('+ t[1] +')</td></tr>';
+        markup += '<tr><td><span class="filter-feed" data-tag="'+ t[0] +'">'+ t[0] +' ('+ t[1] +')</span></td></tr>';
     }
     $('.filters').html(markup);
+    init_filters(FEED)
+}
+function init_filters(FEED) {
+    /* Load the feed with stories that match the tag - repeated some code */
+    $('.filter-feed').click(function() {
+        tag = $(this).attr('data-tag');
 
-    //More news section
-    markup = '';
-    per_page = 6
-    pages = parseInt(news.length / per_page)
-    pstr = '<li><a>«</a></li>'
-    for (var i = 0; i < pages; i++) {
-        if (i == 0) {
-            pstr += '<li class="active"><a>'+ (i + 1) +'</a></li>'
-        } else {
-            pstr += '<li><a>'+ (i + 1) +'</a></li>'
+        news = []
+        first_item = true
+        for (n in FEED) {
+            node = FEED[n]
+            tags = node['tags']
+            if (tag == '') news.push(node)
+            if (tags.indexOf(tag) > -1)news.push(node)
         }
-    }
-     pstr += '<li><a>»</a></li>'
-    $('.pagination').html(pstr)
-    for (var i = (per_page - 1); i < news.length; i++) {
-        node = news[i]
-        page = parseInt(((i - 5) / per_page) + 1)
-        markup += more_news_template(node, page)
-    }
-    $('.more_news').html(markup);
-    for (var i = 2; i <= pages; i++) {
-        $('.page_' + i).css('display','none')
-    }
-    $('.pagination').css('display', 'block')
-    $('.pagination li a').click(function() {
+        display_more_news_section(news, 1)
+
+    });
+}
+
+function display_more_news_section(news, start) {
+    //More news section
+        markup = '';
+        per_page = 6
+        pages = parseInt(news.length / per_page)
+        pstr = ''
+        if (pages > 1) {
+            pstr = '<li><a>«</a></li>'
+            for (var i = 0; i < pages; i++) {
+                if (i == 0) {
+                    pstr += '<li class="active"><a>'+ (i + 1) +'</a></li>'
+                } else {
+                    pstr += '<li><a>'+ (i + 1) +'</a></li>'
+                }
+            }
+            pstr += '<li><a>»</a></li>';
+        }
+        $('.pagination').html(pstr)
+        for (var i = start; i < news.length; i++) {
+            node = news[i]
+            page = parseInt(((i - 5) / per_page) + 1)
+            markup += more_news_template(node, page)
+        }
+        $('.more_news').html(markup);
+        for (var i = 2; i <= pages; i++) {
+            $('.page_' + i).css('display','none')
+        }
+        $('.pagination').css('display', 'block')
+        $('.pagination li a').click(function() {
         page = $(this).html()
         if (page == '»') page = pages
         else if (page == '«') page = 1
