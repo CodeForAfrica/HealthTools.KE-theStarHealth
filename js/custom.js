@@ -177,7 +177,7 @@ function format_node(node) {
 
 //    new_node['link'] = "http://the-star.co.ke/node/" + node.nid;
 //    new_node['link'] = window.location.href + "story?id=" + node.nid;
-    new_node['link'] = window.location.href + "story#" + slugify(node.title);
+    new_node['link'] = window.location.href + "story?" + slugify(node.title);
 
     new_node['title'] = node.title;
 

@@ -572,3 +572,42 @@ modal-body {
     text-decoration:underline;
     cursor:pointer;
 }
+.classifieds {
+    margin-top:20px;
+}
+.classifieds .rubrikk-head {
+    background-color: #25408f;
+    color: #f5f5f5;
+    padding: .5em 10px;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+.classifieds li {
+    padding: 10px 0px;
+    border-bottom: 1px solid #e0e0e0;
+}
+.rrssb-buttons li {
+    width:19%;
+    float:left;
+    padding:10px;
+    margin-right:2px;
+
+}
+.rrssb-buttons li a {
+    color:#fff;
+}
+.rrssb-facebook {
+    background-color:#306199;
+}
+.rrssb-twitter {
+    background-color:#26c4f1;
+}
+.rrssb-whatsapp {
+    background-color:#43d854;
+}
+.rrssb-email {
+    background-color:#0a88ff;
+}
+.rrssb-googleplus {
+    background-color:#e93f2e;
+}

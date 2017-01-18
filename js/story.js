@@ -1,6 +1,7 @@
-url = window.location.href
-story_slug = url.substring(url.indexOf('#') + 1, (url.length))
-get_feed()
+url = window.location.href;
+story_slug = url.substring(url.indexOf('?') + 1, (url.length));
+get_feed();
+var NODE = null;
 function get_feed() {
     //Retrieves the feed from the star
     feed_url = 'https://c6maz9prs8.execute-api.eu-west-1.amazonaws.com/starhealthfeed'
@@ -8,16 +9,19 @@ function get_feed() {
         method: "GET",
         url: feed_url,
         success: (function( data ) {
-            prepare_data(data)
+            prepare_data(data);
         })
     })
 }
 
 function prepare_data(data) {
+    //Loop through all stories until you find the story that has a matching slug
     for (var i = 0; i < data.nodes.length; i++) {
-        node = data.nodes[i].node
+        node = data.nodes[i].node;
         if (slugify(node.title) == story_slug) {
-            display_story(node)
+            NODE = node;
+            social_media_share_button_update(node.title)
+            display_story(node);
             break
         }
     }
@@ -33,6 +37,7 @@ function slugify(text) {
 }
 
 function display_story(node) {
+    //Show the story content in the story section
     $('.title').html(node.title)
     $('.story-date').html(node.date)
     if (node.byline.split('@').length > 1) {
@@ -48,28 +53,28 @@ function display_story(node) {
 }
 
 function get_classifieds() {
-//    feed_url = 'http://www.the-star.co.ke/classifieds/api/html/GetPopularSearches?q=&maxResults=10'
-    feed_url = 'http://www.the-star.co.ke/'
-    $.ajax({
-        method: "GET",
+    feed_url = 'https://lg9kznzua1.execute-api.eu-west-1.amazonaws.com/firstiteration?maxResults=10';
+    y = $.ajax({
+        method: "get",
         url: feed_url,
-        success: (function( data ) {
-            $('.classifieds').$.parseHTML( data )
+        error: (function( err ) { // It's weird but the success function has no responseText only the error function
+            $('.classifieds').html(err.responseText);
         })
-    })
+    });
 }
 
-/*Social buttons*/
+function social_media_share_button_update(title) {
+    //Make the share buttons share the correct story
+    $('.rrssb-facebook a').attr('href', 'https://www.facebook.com/sharer/sharer.php?u=' + window.location.href)
+    $('.rrssb-twitter a').attr('href', 'https://twitter.com/intent/tweet?text=' + title + '&amp;url=' + window.location.href + '&amp;via=TheStarKenya' )
+    $('.rrssb-googleplus a').attr('href', 'https://plus.google.com/share?url=' + window.location.href)
+    $('.rrssb-whatsapp a').attr('href','whatsapp://send?text=' + window.location.href)
+    $('.rrssb-email a').attr('href', 'mailto:?subject=' + title + '&amp;body=' + window.location.href)
 
-$(document).ready(function ($) {
-//    get_classifieds()
-//  $('.rrssb-buttons').rrssb({
-//    // required:
-//    title: 'This is the email subject and/or tweet text',
-//    url: 'http://rrssb.ml/',
-//
-//    // optional:
-//    description: 'Longer description used with some providers',
-//    emailBody: 'Usually email body is just the description + url, but you can customize it if you want'
-//  });
+}
+
+$(document).ready(function () {
+    //Load the classifieds section
+    get_classifieds();
+
 });
