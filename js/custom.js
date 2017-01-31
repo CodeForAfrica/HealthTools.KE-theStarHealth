@@ -365,13 +365,14 @@ $(document).ready(function() {
         var name = $("#doctorName").val();
         var search_type = $('#search-type').val();
         if (search_type  == 'doctor') {
-            url = "https://szfs458b3b.execute-api.eu-west-1.amazonaws.com/prod?q=" + name
+            //url = "https://szfs458b3b.execute-api.eu-west-1.amazonaws.com/prod?q=" + name
+            url = 'https://6ujyvhcwe6.execute-api.eu-west-1.amazonaws.com/prod?q=' + name
         }
         else if (search_type  == 'nurse') {
             url = "https://52ien7p95b.execute-api.eu-west-1.amazonaws.com/prod?q=" + name
         } else {
-            //TODO Clinical officers cloudsearch url
-            url = "" + name
+            //CO search url
+            url = "https://vfblk3b8eh.execute-api.eu-west-1.amazonaws.com/prod?q=" + name
         }
         $("#dname").html("<h4>Results for " + search_type + " search: " + name + "</h4>");
         $("#mybox").html("");
