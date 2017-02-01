@@ -63,6 +63,32 @@ function get_classifieds() {
     });
 }
 
+function get_news_feed() {
+    title_arr = []
+    link_arr = []
+    url = 'https://nv68l36lle.execute-api.eu-west-1.amazonaws.com/prod'
+    $.ajax({
+        method: "get",
+        url: url,
+        error: (function( err ) {
+            d = $.parseXML(err.responseText)
+            $xml = $(d)
+            $xml.find("item>link").each(function(){ link_arr.push($(this).text())})
+            $xml.find("item>title").each(function(){ title_arr.push($(this).text())})
+            html = ''
+            for (var i = 0; i < title_arr.length; i++) {
+                html += '<li>'
+                html += '<a href="'+ link_arr[i] +'">'+ title_arr[i] +'</a>'
+                html += '</li>'
+            }
+            $('.latest-news-links').html(html)
+        }),
+        success: (function( data ) {
+            console.log(err)
+        })
+    });
+}
+
 function social_media_share_button_update(title) {
     //Make the share buttons share the correct story
     $('.rrssb-facebook a').attr('href', 'https://www.facebook.com/sharer/sharer.php?u=' + window.location.href)
@@ -76,5 +102,5 @@ function social_media_share_button_update(title) {
 $(document).ready(function () {
     //Load the classifieds section
     get_classifieds();
-
+    get_news_feed()
 });
