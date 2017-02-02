@@ -352,6 +352,12 @@ $(document).ready(function() {
             return false;
         }
     });
+    $('#areaName').keypress(function (e) {
+        if (e.which == 13) {
+            $("#facility-search").click();
+            return false;
+        }
+    });
 
     $('#site_search_submit').click(function() {
         if ($('#main_search').val().length == 0) {
@@ -406,25 +412,6 @@ $(document).ready(function() {
         });
     });
 
-    //Check if hospital is registered
-    $("#clinicName").autocomplete("getClinics", {
-        matchContains: true,
-        selectFirst: false
-    });
-
-
-    $("#grabClinicDetails").click(function(){
-        var name = $("#clinicName").val();
-        $("#dname").html("<h4>Results for: " + name + "</h4>");
-        $("#mybox").html("");
-        $("#loading").show();
-        $.ajax({url:"singleClinic?q=" + name,success:function(result){
-            $("#clinicName").val("");
-            $("#mybox").html(result);
-            $("#loading").hide();
-        }});
-    });
-
     $("#grabNHIFDetails").click(function() {
         var hospital_location = $("#county_select option:selected").text();
         var hospital_type = $("#county_select").val();
@@ -446,24 +433,14 @@ $(document).ready(function() {
         }});
     });
 
-    $("#grabSpecialists").click(function(){
-        var hospital_location_gps = $("#hospital_location_gps_sp").val();
-        var hospital_location = $("#hospital_location_sp").val();
-        var specialty = $("#specialist").val();
-        if(specialty == "0"){
-            $("#dname").html("<h4>"+hospital_location + "</h4>");
-        }else{
-            if(hospital_location != "")
-                $("#dname").html("<h4>"+specialty+" in " + hospital_location + "</h4>");
-        }
+    $("#facility-search").click(function(){
+        query = $('#areaName').val()
+        $("#dname").html("<h4>Results for: " + query + "</h4>");
         $("#mybox").html("");
         $("#loading").show();
-        $.ajax({url:"specialty?specialty=" + specialty + "&gps=" + hospital_location_gps + "&address=" + hospital_location,success:function(result){
-            $("#mybox").html(result);
-            $("#hospital_location_gps_sp").val("");
-            $("#hospital_location_sp").val("");
-            $("#loading").hide();
-        }});
+        if (query != '') {
+            get_access_token_and_search_health_facilites(query)
+        }
     });
 
     $(".filter_feed").click(function(){
@@ -532,30 +509,8 @@ $(document).ready(function() {
         }
         $("#income").val("")
     });
-    jQuery(".near_me").click(initiate_geolocation);
 });
 
-
-function initiate_geolocation() {
-    $("#hospital_location").css("background", "white url('ajax-autocomplete/indicator.gif') right center no-repeat");
-    $("#hospital_location_sp").css("background", "white url('ajax-autocomplete/indicator.gif') right center no-repeat");
-    navigator.geolocation.getCurrentPosition(handle_geolocation_query);
-}
-
-function handle_geolocation_query(position){
-    //Get cordinates on complete
-    var autoCords = position.coords.latitude + ',' + position.coords.longitude;
-    $("#hospital_location_gps").val(autoCords);
-    $("#hospital_location_gps_sp").val(autoCords);
-    //make ajax request to reverse geocode coordinates
-    $.ajax({url:"reverse_geocode?q=" + autoCords,success:function(result){
-        $("#hospital_location").val(result);
-        $("#hospital_location_sp").val(result);
-        //$("#loading_hospitals").hide();
-        $("#hospital_location").css("background", "none");
-        $("#hospital_location_sp").css("background", "none");
-    }});
-}
 
 function filter_feed(section) {
     document.getElementById("filtered").innerHTML = "";
@@ -573,3 +528,62 @@ function filter_feed(section) {
         }
     }
 }
+
+function get_access_token_and_search_health_facilites(search_query) {
+    url = 'http://api.kmhfl.health.go.ke/o/token/'
+    $.ajax({
+        method: 'POST',
+        url: url,
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        transformRequest: function(obj) {
+            var str = [];
+            for(var p in obj)
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+            return str.join("&");
+        },
+        data: {
+            username: 'public@mfltest.slade360.co.ke',
+            password:'public',
+            grant_type:'password',
+            client_id:'xMddOofHI0jOKboVxdoKAXWKpkEQAP0TuloGpfj5',
+            client_secret:'PHrUzCRFm9558DGa6Fh1hEvSCh3C9Lijfq8sbCMZhZqmANYV5ZP04mUXGJdsrZLXuZG4VCmvjShdKHwU6IRmPQld5LDzvJoguEP8AAXGJhrqfLnmtFXU3x2FO1nWLxUx'
+        }
+    }).success(function (data) {
+         get_health_facilites(data.access_token, search_query)
+    })
+}
+
+function get_health_facilites(token, query) {
+    url = 'http://api.kmhfl.health.go.ke/api/facilities/material/?'
+    url += 'fields=id,code,name,regulatory_status_name,facility_type_name,owner_name,county,constituency,ward_name,keph_level,operation_status_name&format=json&search='
+    url += '{"query":{"query_string":{"default_field":"name","query":'+ query +'}}}'
+    $.ajax({
+        method: 'GET',
+        url: url,
+        headers: {'Authorization': 'Bearer ' + token},
+    }).success(function (data) {
+         display_health_facilities(data.results)
+    })
+}
+function display_health_facilities(list) {
+    html = ''
+    for(var i = 0; i < list.length; i++) {
+        html += '<div class="row">'
+        html += '<div class="col-md-12">'
+        html += "Name: " + list[i].name + '<br>'
+        html += "KEPH level name: " + list[i].keph_level_name + '<br>'
+        html += "Facility type: " + list[i].facility_type_name + '<br>'
+        html += "Owner: " + list[i].owner_name+ '<br>'
+        html += "County: " + list[i].county_name+ '<br>'
+        html += "Constituency: " + list[i].constituency_name+ '<br>'
+        html += "Ward: " + list[i].ward_name+ '<br>'
+        html += '</div>'
+        html += '</div>'
+        html += '<hr>'
+    }
+    $("#mybox").html(html);
+    $("#areaname").val("");
+    $("#loading").hide();
+}
+
+

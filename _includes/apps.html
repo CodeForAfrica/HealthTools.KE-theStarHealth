@@ -18,7 +18,7 @@
                     </select>
                     <input type="text" placeholder="Start typing doctor's name" class="search form-control" id="doctorName" />
 
-                    <button class='btn btn-primary red_button' href="#myModal" role="button" class="btn" data-toggle="modal" id="grabDetails">
+                    <button class='btn btn-primary red_button' href="#myModal" role="button" data-toggle="modal" id="grabDetails">
                         Search
                     </button>
                     <div class="contribution">
@@ -98,22 +98,18 @@
         </div>
         <div class="col-md-4">
             <div class="app">
-                <h4 class="app_title"><i class="fa fa-map-marker"></i>Nearest Specialist</h4>
-                <div class="app_top">
-                    <p>Find the nearest specialist doctor or health facility.</p>
-                    <p><small><em>Visit the Kenya Master Health Facility List (KMHFL) website now:</em></small></p>
-                    <br/>
-                </div>
-                <div class="app_bottom text-center">
-
-                    <a class='btn btn-primary' href="http://kmhfl.health.go.ke//home" target="_blank">
-                        Visit KHMLF <i class="fa fa-external-link"></i>
-                    </a>
-                    <div class="contribution">
-                        <a href="#embed_3_modal" data-toggle="modal">Embed</a>
-                    </div>
-                </div>
-
+                 <h4 class="app_title"><i class="fa fa-map-marker"></i>Nearest Specialist</h4>
+                 <div class="app_top">
+                     <p>Find the nearest specialist doctor or health facility.</p>
+                     <input type="text" placeholder="Start typing the name of your area" class="search form-control" id="areaName" />
+                     <br/>
+                 </div>
+                 <div class="app_bottom text-center">
+                     <button class='btn btn-primary' id="facility-search" href="#myModal" data-toggle="modal" role="button">Search </button>
+                     <div class="contribution">
+                         <a href="#embed_3_modal" data-toggle="modal">Embed</a>
+                     </div>
+                 </div>
             </div>
         </div>
     </div>
