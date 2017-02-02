@@ -397,12 +397,22 @@ $(document).ready(function() {
                         str += 'Registration date:' + result.hits.hit[i].fields.registration_date + '<br>'
                         if ( i < result.hits.hit.length - 1) str += '<hr>'
                     }
+                } else if (search_type == "nurse") {
+                    for (var i = 0; i < result.hits.hit.length; i++) {
+                        str += 'Name: ' + result.hits.hit[i].fields.name + '<br>'
+                        str += 'Role: Nurse<br>'
+                        str += 'License: ' + result.hits.hit[i].fields.license + '<br>'
+                        str += 'Valid until :' + result.hits.hit[i].fields.valid_until + '<br>'
+                        if ( i < result.hits.hit.length - 1)str += '<hr>'
+                    }
                 } else {
                     for (var i = 0; i < result.hits.hit.length; i++) {
                         str += 'Name: ' + result.hits.hit[i].fields.name + '<br>'
-                        str += 'Role:Nurse<br>'
-                        str += 'License: ' + result.hits.hit[i].fields.license + '<br>'
-                        str += 'Valid until :' + result.hits.hit[i].fields.valid_until + '<br>'
+                        str += 'Role: Clinical Officer<br>'
+                        str += 'Reg no: ' + result.hits.hit[i].fields.registration_number + '<br>'
+                        str += 'Reg date: ' + result.hits.hit[i].fields.registration_date + '<br>'
+                        str += 'Address: ' + result.hits.hit[i].fields.address + '<br>'
+                        str += 'Qualification: ' + result.hits.hit[i].fields.qualification + '<br>'
                         if ( i < result.hits.hit.length - 1)str += '<hr>'
                     }
                 }
