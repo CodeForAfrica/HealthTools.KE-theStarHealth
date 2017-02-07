@@ -449,7 +449,7 @@ $(document).ready(function() {
         $("#mybox").html("");
         $("#loading").show();
         if (query != '') {
-            get_access_token_and_search_health_facilites(query)
+            get_health_facilites(query)
         }
     });
 
@@ -539,54 +539,28 @@ function filter_feed(section) {
     }
 }
 
-function get_access_token_and_search_health_facilites(search_query) {
-    url = 'http://api.kmhfl.health.go.ke/o/token/'
-    $.ajax({
-        method: 'POST',
-        url: url,
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        transformRequest: function(obj) {
-            var str = [];
-            for(var p in obj)
-            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-            return str.join("&");
-        },
-        data: {
-            username: 'public@mfltest.slade360.co.ke',
-            password:'public',
-            grant_type:'password',
-            client_id:'xMddOofHI0jOKboVxdoKAXWKpkEQAP0TuloGpfj5',
-            client_secret:'PHrUzCRFm9558DGa6Fh1hEvSCh3C9Lijfq8sbCMZhZqmANYV5ZP04mUXGJdsrZLXuZG4VCmvjShdKHwU6IRmPQld5LDzvJoguEP8AAXGJhrqfLnmtFXU3x2FO1nWLxUx'
-        }
-    }).success(function (data) {
-         get_health_facilites(data.access_token, search_query)
-    })
-}
-
-function get_health_facilites(token, query) {
-    url = 'http://api.kmhfl.health.go.ke/api/facilities/material/?'
-    url += 'fields=id,code,name,regulatory_status_name,facility_type_name,owner_name,county,constituency,ward_name,keph_level,operation_status_name&format=json&search='
-    url += '{"query":{"query_string":{"default_field":"name","query":'+ query +'}}}'
+function get_health_facilites(query) {
+    url = 'https://187mzjvmpd.execute-api.eu-west-1.amazonaws.com/prod?q=' + query
     $.ajax({
         method: 'GET',
         url: url,
-        headers: {'Authorization': 'Bearer ' + token},
     }).success(function (data) {
-         display_health_facilities(data.results)
+         display_health_facilities(data.hits.hit)
     })
 }
 function display_health_facilities(list) {
     html = ''
     for(var i = 0; i < list.length; i++) {
+        data = list[i].fields
         html += '<div class="row">'
         html += '<div class="col-md-12">'
-        html += "Name: " + list[i].name + '<br>'
-        html += "KEPH level name: " + list[i].keph_level_name + '<br>'
-        html += "Facility type: " + list[i].facility_type_name + '<br>'
-        html += "Owner: " + list[i].owner_name+ '<br>'
-        html += "County: " + list[i].county_name+ '<br>'
-        html += "Constituency: " + list[i].constituency_name+ '<br>'
-        html += "Ward: " + list[i].ward_name+ '<br>'
+        html += "Name: " + data.name + '<br>'
+        html += "KEPH level name: " + data.keph_level_name + '<br>'
+        html += "Facility type: " + data.facility_type_name + '<br>'
+        html += "Owner: " + data.owner_name+ '<br>'
+        html += "County: " + data.county_name+ '<br>'
+        html += "Constituency: " + data.constituency_name+ '<br>'
+        html += "Ward: " + data.ward_name+ '<br>'
         html += '</div>'
         html += '</div>'
         html += '<hr>'
