@@ -9,7 +9,8 @@ import urllib, os, json
 
 SEARCH_URL = dict(
         doctors=os.getenv("DOCTOR_SEARCH"),
-        nurses=os.getenv("NURSE_SEARCH")
+        nurses=os.getenv("NURSE_SEARCH"),
+        clinical_officer=os.getenv("CLINICAL_OFFICER_SEARCH")
         )
 
 MESSAGES = dict(

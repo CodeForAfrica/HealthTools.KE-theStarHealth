@@ -1,0 +1,600 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>StarHealth | Kenya's Health Portal by the Star</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/custom.css" rel="stylesheet">
+    <!--Font awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/rrssb/1.6.0/css/rrssb.css">-->
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom font -->
+    <link href='https://fonts.googleapis.com/css?family=Vollkorn' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link rel="shortcut icon" href="http://health.the-star.co.ke/ico/starhealth-favicon-32.png">
+</head>
+
+<div class="container">
+    <header id="topbar">
+        <div class="container-fluid">
+            <div class="region region-top-navigation">
+                <span class="date">
+                    <script>
+                        var weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+                        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+                        d = new Date()
+                        document.write(weekdays[d.getDay()] + ', ' + months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear() )
+                    </script>
+                </span>
+                <div id="block-menu-menu-radiomenu" class="block block-menu block-odd">
+
+                    <div class="content">
+                        <ul><li class="first leaf classic-105 mid-1819"><a href="http://www.ustream.tv/channel/classic105-kenya?utm_campaign=JPER&amp;utm_medium=FlashPlayer&amp;utm_source=embed" title="" target="_blank">Classic 105</a></li>
+                            <li class="leaf east-fm mid-1822"><a href="http://www.ustream.tv/channel/east-fm?utm_campaign=JPER&amp;utm_medium=FlashPlayer&amp;utm_source=embed" title="" target="_blank">East FM</a></li>
+                            <li class="leaf kiss-100 mid-1818"><a href="http://www.ustream.tv/channel/kiss100-kenya?utm_campaign=JPER&amp;utm_medium=FlashPlayer&amp;utm_source=embed" title="" target="_blank">Kiss 100</a></li>
+                            <li class="leaf radio-jambo mid-1820"><a href="http://www.ustream.tv/channel/radiojambo-fm?utm_campaign=JPER&amp;utm_medium=FlashPlayer&amp;utm_source=embed" title="" target="_blank">Radio Jambo</a></li>
+                            <li class="last leaf mpasho mid-1821"><a href="http://mpasho.co.ke" title="" target="_blank">Mpasho</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </header>
+</div>
+
+<div class="row brand_section">
+    <div class="container">
+        <div class="col-sm-3 col-xs-12 logo text-center">
+            <a class="brand" href="/"><img src="http://www.the-star.co.ke/sites/all/themes/thestar_theme/logo-big.png"> </a>
+        </div>
+        <div class="col-sm-6 col-xs-12 sms-section">
+            <img src="img/sms.png">
+            <h4>Send query to 22495</h4>
+            Examples: 1.<span class="sms_example">Doctor James Gicheru</span>, 2.<span class="sms_example">X-Ray in Kiambu</span>, 3.<span class="sms_example">NHIF in Karatina</span>
+        </div>
+        <div class="col-sm-3 col-xs-12 date-search">
+            <div class="date-section">
+
+            </div>
+            <div class="input-group">
+                <input id="main_search" type="text" class="form-control search" placeholder="Search The Star Health" aria-describedby="site_search_submit">
+                <span class="input-group-addon" id="site_search_submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav" id="navbar">
+                <li class="">
+                    <a href="http://www.the-star.co.ke/">Home</a>
+                </li>
+                <li class="">
+                    <a href="http://www.the-star.co.ke/news/latest-news_c401249">Latest News</a>
+                </li>
+                <li class="">
+                    <a href="http://www.the-star.co.ke/news/national_c29654">Today's Paper</a>
+                </li>
+                <li class="">
+                    <a href="http://www.the-star.co.ke/news/business_c29663">Business</a>
+                </li>
+                <li class="">
+                    <a href="http://www.the-star.co.ke/news/sport_c29664">Sport</a>
+                </li>
+                <li class="">
+                    <a href="http://www.the-star.co.ke/news/opinion_c29661">Opinion</a>
+                </li>
+                <li class="active">
+                    <a href="http://health.the-star.co.ke/">Health</a>
+                </li>
+                <li class="">
+                    <a href="http://www.the-star.co.ke/news/lifestyle_c29662">Star Life</a>
+                </li>
+                <li class="">
+                    <a href="http://www.the-star.co.ke/news/sasa_c147383">Weekend</a>
+                </li>
+                <li class="">
+                    <a href="http://www.the-star.co.ke/classifieds" target="_blank">Classified</a>
+                </li>
+                <li class="last-item">
+                    <a href="http://the-starvideos.co.ke/" target="_blank">Videos</a>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+<div class="container">
+    <div class="row" id="apps">
+        <link rel="stylesheet" type="text/css" href="css/jquery.autocomplete.css">
+        <script type="text/javascript" src="js/jquery.js"></script>
+
+        <script type='text/javascript' src="js/jquery.autocomplete.js"></script>
+        <div class="col-md-4">
+            <div class="app">
+                <h4 class="app_title"><i class="fa fa-user-md"></i>Dodgy Doctors</h4>
+                <div class="app_top">
+                    Check to see if your doctor/nurse is registered.<br/><small><em>Can't find a name? Send us an email <a href="mailto:starhealth@codeforafrica.org" target="_blank">starhealth@codeforafrica.org</a></em></small>
+                </div>
+                <div class="app_bottom">
+                     <select class="form-control" id="search-type">
+                        <option value="doctor">Doctor Search</option>
+                        <option value="nurse">Nurse Search</option>
+                        <option value="clinical officer">Clinical Officer Search</option>
+                    </select>
+                    <input type="text" placeholder="Start typing doctor's name" class="search form-control" id="doctorName" />
+
+                    <button class='btn btn-primary red_button' href="#myModal" role="button" data-toggle="modal" id="grabDetails">
+                        Search
+                    </button>
+                    <div class="contribution">
+                        <a href="#embed_1_modal" data-toggle="modal">Embed</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="app">
+                <h4 class="app_title"><i class="fa fa-umbrella"></i>Am I Covered</h4>
+                <div class="app_top">
+                    Find out which facilities your NHIF card will cover in your county:<br/><small><em>Can't find a name? Send us an email <a href="mailto:starhealth@codeforafrica.org" target="_blank">starhealth@codeforafrica.org</a></em></small>
+                </div>
+                <div class="app_bottom">
+                    <select id="county_select" class="form-control">
+                        <option value="0">Select Your County</option>
+                        <option value="1">Baringo</option>
+                        <option value="2">Bomet</option>
+                        <option value="3">Bungoma</option>
+                        <option value="4">Busia</option>
+                        <option value="5">Elgeyo Marakwet</option>
+                        <option value="6">Embu</option>
+                        <option value="7">Garissa</option>
+                        <option value="8">Homa Bay</option>
+                        <option value="9">Isiolo</option>
+                        <option value="10">Kajiado</option>
+                        <option value="11">Kakamega</option>
+                        <option value="12">Kericho</option>
+                        <option value="13">Kiambu</option>
+                        <option value="14">Kilifi</option>
+                        <option value="15">Kirinyaga</option>
+                        <option value="16">Kisii</option>
+                        <option value="17">Kisumu</option>
+                        <option value="18">Kitui</option>
+                        <option value="19">Kwale</option>
+                        <option value="20">Laikipia</option>
+                        <option value="21">Lamu</option>
+                        <option value="22">Machakos</option>
+                        <option value="23">Makueni</option>
+                        <option value="24">Mandera</option>
+                        <option value="25">Marsabit</option>
+                        <option value="26">Meru</option>
+                        <option value="27">Migori</option>
+                        <option value="28">Mombasa</option>
+                        <option value="29">Murang’a</option>
+                        <option value="30">Nairobi</option>
+                        <option value="31">Nakuru</option>
+                        <option value="32">Nandi</option>
+                        <option value="33">Narok</option>
+                        <option value="34">Nyamira</option>
+                        <option value="35">Nyandarua</option>
+                        <option value="36">Nyeri</option>
+                        <option value="37">Samburu</option>
+                        <option value="38">Siaya</option>
+                        <option value="39">Taita Taveta</option>
+                        <option value="40">Tana River</option>
+                        <option value="41">Tharaka Nithi</option>
+                        <option value="42">Trans Nzoia</option>
+                        <option value="43">Turkana</option>
+                        <option value="44">Uasin Gishu</option>
+                        <option value="45">Vihiga</option>
+                        <option value="46">Wajir</option>
+                        <option value="47">West Pokot</option>
+                    </select>
+
+                    <button class='btn btn-primary ' href="#myModal" role="button" class="btn" data-toggle="modal" id="grabNHIFDetails">
+                        Search
+                    </button>
+                    <div class="contribution">
+                        <a href="#embed_2_modal" data-toggle="modal">Embed </a> |
+                        <a href="#premiumRatesModal" data-toggle="modal" id="whatsMyContribution">What's my contribution?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="app">
+                 <h4 class="app_title"><i class="fa fa-map-marker"></i>Nearest Facility</h4>
+                 <div class="app_top">
+                     <p>Find the nearest doctor or health facility.</p>
+                     <input type="text" placeholder="Start typing the name of your area" class="search form-control" id="areaName" />
+                     <br/>
+                 </div>
+                 <div class="app_bottom text-center">
+                     <button class='btn btn-primary' id="facility-search" href="#myModal" data-toggle="modal" role="button">Search </button>
+                     <div class="contribution">
+                         <a href="#embed_3_modal" data-toggle="modal">Embed</a>
+                     </div>
+                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<body>
+    <div class="container">
+    <!-- begin news section -->
+    <div class="row news_section">
+
+        <div class="news_section_featured col-md-9">
+            <div class="row">
+
+                <h3 class="story_title" style="font-size:2em"></h3>
+                <div class="backstory col-md-3">
+                    <div class="backstory_desc"></div>
+                    <h4>The story so far</h4>
+                    <div id="sofar"></div>
+                    <h4>Evidence Dossier</h4>
+                    <a href="http://africaopendata.org/dataset?q=kenya+health"><i class="fa fa-database"></i> Data repository</a>
+                </div>
+
+                <div class="col-md-9">
+                    <div class="featured_thumb_div">
+                        <div class="featured_thumb_section"></div>
+                        <div class="feedback">
+                            <a href="http://www.the-star.co.ke/section/contact-details" target="_blank"><strong>Tell us more</strong><br/>Do you have more information? Help us improve this story by sharing your experiences/evidence.</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+        </div>
+        <div class="col-md-3">
+            <div class="widget_body">
+                <div class="row-header"><h4><i class="fa fa-phone-square"></i>Help Lines</h4></div>
+                <p><a href='tel:"053801053"'> Kenya Police (053801053)</a></p>
+                <p><a href='tel:"+254 20 2724938"'> Kenya Medical Board (+254 20 2724938)</a></p>
+                <p><a href='tel:"+254 20 2717077"'> Ministry of Health (+254 20 2717077)</a></p>
+                <p><a href='tel:"+254 20 3873556"'> Nursing Council of Kenya (+254 20 3873556)</a></p>
+            </div>
+
+            <div class="widget_body">
+                <div class="row-header"><h4><i class="fa fa-anchor"></i>Support Groups</h4></div>
+                No groups listed
+            </div>
+
+            <div class="widget_body">
+                <div class="row-header"><h4><i class="fa fa-external-link"></i> Links</h4></div>
+                <p><a href='http://medicalboard.co.ke/'>Medical Practitioners and Dentists Board</a></p>
+                <p><a href='http://twitter.com/EMS_Kenya'>Kenya red Cross</a></p>
+                <p><a href='http://twitter.com/StJohnsKenya'> St. John's Ambulance</a></p>
+                <p><a href='http://twitter.com/NairobiWomens_H'>Nairobi Women's Hospital</a></p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- begin feed -->
+    <div class="row news_feed">
+        <div class="col-md-3 sidebar_widget2">
+            <div class="row-header"><h3>Major Stories</h3></div>
+            <div class="accordions"></div>
+            <br/><br/>
+
+            <div class="row-header"><h4>Feed Filters</h4></div>
+            <table class="table table-striped feed-filters">
+                <tbody class="filters"></tbody>
+            </table>
+        </div>
+
+        <div class="col-md-6 newsfeed" id="filtered">
+            <a name="newsfeed"></a>
+            <div class="row-header"><h3>Other Health News</h3></div>
+            <h6>A round-up of the all the latest health news from theStar <i class="icon-arrow-down" style="margin-left: 10px"></i></h6>
+            <br/>
+            <div class="more_news"></div>
+            <center>
+                <ul class="pagination"></ul>
+            </center>
+        </div>
+        <br/>
+
+        <div class="col-md-3 sidebar_widget2 links">
+            <div class="row-header"><h3>Links</h3></div>
+            <p>Download the Star's mobile Apps, eBooks, and other tools.</p>
+            <a href="https://play.google.com/apps/testing/org.codeforafrica.citizenreporter.starreports" target="_blank"><img src="img/android-icon.png"></a>
+            <hr/>
+            <a href="http://code4kenya.org" target="_blank"><img style="height: 80px" src="img/c4k_logo.png" id="c4k_partner"></a>
+            <br/>
+            The data driven journalism + tools in StarHealth section were kickstarted by Code4Kenya
+            <hr />
+            <div style="text-align: center;">
+                <a href="http://github.com/CodeForAfrica/HealthTools"><img src="img/GitHub-Mark-32px.png" id="cfa_icon"></a>
+                <a href="http://africaopendata.org/dataset?q=kenya+health"><img style="height:32px;margin-left:25px" src="img/data.png"></a>
+            </div>
+            <p>The code & data for this page are open source. You can re-use it by visiting the above repositories.</p>
+            <br/>
+            <br/>
+            <div class="row-header"><h4>Stay in Touch</h4></div>
+            <div class="social_media_icons">
+                <a href="https://www.facebook.com/thestarkenya" target="_blank"><img src="img/facebook.png" style="height:32px;width:32px"></a>
+                <a href="https://twitter.com/TheStarKenya" target="_blank"><img src="img/twitter.png" style="height:32px;width:32px"></a>
+                <a href="http://www.the-star.co.ke/rss.xml" target="_blank"><img src="img/rss.png" style="height:32px;width:32px"></a>
+            </div>
+            <!-- <a class="twitter-timeline" href="https://twitter.com/TheStarKenya" data-widget-id="336091571755827200">Tweets by @TheStarKenya</a> -->
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
+    </div>
+</div>
+</body>
+<footer class="site-footer clearrfix" role="contentinfo">
+    <div class="footer-wrapper clearfix container">
+        <div class="row" id="footer">
+
+            <div class="col-md-12">
+                <div class="footer_inner">
+                    <div class="col-md-3">
+                        <a href="https://the-star.co.ke">
+                            <img src="http://www.the-star.co.ke/sites/all/themes/thestar_theme/logo-big.png"/>
+                        </a>
+                        <br clear="all">
+                        <br clear="all">
+                        <a href="http://code4kenya.org" target="_blank">
+                            <span>Built by </span>
+                            <br clear="all">
+                            <br clear="all">
+                            <img src="img/cfk-logo.png">
+                        </a>
+                    </div>
+
+                    <div class="col-md-3">
+                         <h4>Partner sites</h4>
+                        <ul>
+                            <li><a href="http://classic105.com">Classic 105</a></li>
+                            <li><a href="http://eastfm.com">East FM</a></li>
+                            <li><a href="http://kiss100.co.ke/">Kiss 100</a></li>
+                            <li><a href="http://radiojambo.co.ke/">Radio Jambo</a></li>
+                            <li><a href="http:/mpasho.co.ke/">Mpasho</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h4>FOLLOW THE STAR, KENYA</h4>
+                        <ul>
+                            <li><a href="https://www.facebook.com/thestarkenya"><i class="fa fa-facebook-square"></i>Facebook</a></li>
+                            <li><a href="https://twitter.com/thestarkenya"><i class="fa fa-twitter-square"></i>Twitter</a></li>
+                            <li><a href="https://plus.google.com/u/0/102746437663153160461"><i class="fa fa-google-plus-square"></i>G+</a></li>
+                            <li><a href="https://instagram.com/thestarkenya"><i class="fa fa-instagram"></i>Instagram</a></li>
+                            <li><a href="https://www.youtube.com/channel/UC-aT2XsRXmTHxnCeUiMNvTw"><i class="fa fa-youtube-square"></i>YouTube</a></li>
+                            <li><a href="//www.the-star.co.ke/taxonomy/term/all/rss.xml"><i class="fa fa-rss-square"></i>RSS</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-3">
+                         <h4>Online services</h4>
+                        <ul>
+                            <li><a href="https://play.google.com/store/apps/details?id=ke.co.thestar.android.news">Mobile App (Android)</a></li>
+                            <li><a href="https://itunes.apple.com/app/the-star-kenya/id951491767">Mobile App (IOS)</a></li>
+                            <li><a href="http://www.starclassifieds.co.ke/">The Star, Classifieds</a></li>
+                            <li><a href="http://health.the-star.co.ke/">The Star, Health</a></li>
+                            <li><a href="http://www.thestarepaper.co.ke/">The Star, e-paper</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 text-center">
+
+                <div class="region region-footer-bottom">
+                    <div id="block-block-43" class="block block-block block-odd">
+
+
+                        <div class="content">
+                            <script>
+                                (function(f,b){
+                                    var c;
+                                    f.hj=f.hj||function(){(f.hj.q=f.hj.q||[]).push(arguments)};
+                                    f._hjSettings={hjid:23751, hjsv:3};
+                                    c=b.createElement("script");c.async=1;
+                                    c.src="//static.hotjar.com/c/hotjar-23751.js?sv=3";
+                                    b.getElementsByTagName("head")[0].appendChild(c);
+                                })(window,document);
+                            </script>
+                        </div>
+                    </div>
+                    <div id="block-block-44" class="block block-block block-even">
+
+
+                        <div class="content">
+                            <!--StarReports Analytics-->
+                            <script>
+                                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                                        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                                })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+                                ga('create', 'UA-44795600-11', 'auto');
+                                ga('create', 'UA-21433057-1', 'auto', {'name': 'theStar'});
+                                ga('create', 'UA-21433057-5', 'auto', {'name': 'theStarHealth'});
+                                ga('create', 'UA-33350783-4', 'auto', {'name': 'CfAFRICA'});
+                                ga('send', 'pageview');
+                                ga('theStar.send', 'pageview');
+                                ga('theStarHealth.send', 'pageview');
+                                ga('CfAFRICA.send', 'pageview');
+
+                            </script>
+                        </div>
+                    </div>
+                    <div id="block-block-49" class="block block-block block-odd">
+                        <div class="content">
+                            <script>
+                                window.fbAsyncInit = function() {
+                                    FB.init({
+                                        appId      : '582026265221270',
+                                        xfbml      : true,
+                                        version    : 'v2.3'
+                                    });
+                                };
+
+                                (function(d, s, id){
+                                    var js, fjs = d.getElementsByTagName(s)[0];
+                                    if (d.getElementById(id)) {return;}
+                                    js = d.createElement(s); js.id = id;
+                                    js.src = "//connect.facebook.net/en_US/sdk.js";
+                                    fjs.parentNode.insertBefore(js, fjs);
+                                }(document, 'script', 'facebook-jssdk'));
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <!-- /copyright -->
+            </div>
+        </div><!-- footer-wrapper-->
+    </div>
+</footer>
+<div id="copyright-section">
+    <div class="footer-wrapper clearfix container">
+        © 2017 The Star, Kenya. All Rights Reserved
+    </div>
+</div>
+
+<script src="js/jquery.js"></script>
+<script>
+    var jq191 = $.noConflict();
+</script>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="js/bootstrap.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="js/ie10-viewport-bug-workaround.js"></script>
+
+<!-- Start Alexa Certify Javascript -->
+<script type="text/javascript">
+    _atrk_opts = { atrk_acct:"m1Hdk1a0CM00Gx", domain:"the-star.co.ke",dynamic: true};
+    (function() { var as = document.createElement('script'); as.type = 'text/javascript'; as.async = true; as.src = "https://d31qbv1cthcecs.cloudfront.net/atrk.js"; var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(as, s); })();
+</script>
+<noscript><img src="https://d5nxst8fruw4z.cloudfront.net/atrk.gif?account=m1Hdk1a0CM00Gx" style="display:none" height="1" width="1" alt="" /></noscript>
+<!-- End Alexa Certify Javascript -->
+
+<script src="js/custom.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/rrssb/1.6.0/js/rrssb.min.js"></script>-->
+<script src="js/custom.js"></script>
+
+<div class="the_modals">
+    <!-- Modal -->
+    <div id="myModal" style="text-align:justify !important;" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="dname"></h3>
+                </div>
+                <div class="modal-body" style="height:600px;overflow-y:scroll;">
+                    <p>
+                        <div class="loading" style="text-align:center" id="loading">
+                            <img src="img/indicator.gif">
+                        </div>
+                        <div id="mybox"></div>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="nhifInfoModal" style="text-align:justify !important;" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4>NHIF has divided the accredited hospitals in to 3 categories:</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <ul>
+                            <li><b>Category A - Government Hospitals.</b> Members enjoy full and comprehensive for maternity and medical diseases including surgery. Therefore, if you are a member, you do not pay anything to be admitted.</li>
+                            <li><b>Category B - Private and Mission.</b> Members get a full comprehensive cover but if surgery is required, the member pays for that.</li>
+                            <li><b>Category C – Private</b>. NHIF only pays for specified daily benefits and the member pays everything else.</li>
+                        </ul>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="premiumRatesModal" style="text-align:justify !important;" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="dname">Premium Rates</h3>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Enter your gross income to find out how much you should pay*
+                        <div class="input-group">
+                            <input id="income" type="text" class="form-control search" placeholder="Gross income" aria-describedby="calculate">
+                            <span class="input-group-addon" id="calculate"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+                        </div>
+
+                        <div class="myContribution" id="myContribution">
+
+                        </div>
+                        <div class="self_employed_notification">*Self-employed individuals have a constant rate of KSH 500</div>
+                    </p>
+                </div>
+                <div class="modal-footer">
+
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="embed_1_modal" style="text-align:justify !important;" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+    <div id="embed_2_modal" style="text-align:justify !important;" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+    <div id="embed_3_modal" style="text-align:justify !important;" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+
+</div>
