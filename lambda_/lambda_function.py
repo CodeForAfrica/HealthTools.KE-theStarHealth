@@ -5,12 +5,12 @@ broker for SMS client:
     - return text response
 """
 
-import urllib, os, json, requests
+import requests
 import re
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
-SMS_PROVIDER_USERNAME = os.environ.get('SMS_PROVIDER_USERNAME')
-SMS_PROVIDER_KEY = os.environ.get('SMS_PROVIDER_KEY')
+SECRET_KEY = ''
+SMS_PROVIDER_USERNAME = ''
+SMS_PROVIDER_KEY = ''
 DOCTORS_SEARCH_URL = "https://6ujyvhcwe6.execute-api.eu-west-1.amazonaws.com/prod"
 NURSE_SEARCH_URL = "https://52ien7p95b.execute-api.eu-west-1.amazonaws.com/prod"
 CO_SEARCH_URL = "https://vfblk3b8eh.execute-api.eu-west-1.amazonaws.com/prod"
