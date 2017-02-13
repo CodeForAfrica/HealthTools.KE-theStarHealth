@@ -22,6 +22,7 @@ NO_KEYWORDS = ['nurse', 'no', 'nursing officer', 'mhuguzi', 'RN', 'Registered Nu
 
 def lambda_handler(event, context):
     name = event.get("name", "")
+    phone_number = event.get("phone_number", "")
     msg = build_query_response(name)
     return msg[0]
 
