@@ -28,6 +28,8 @@ def lambda_handler(event, context):
     name = event.get("name", "")
     phone_number = event.get("phone_number", "")
     msg = build_query_response(name)
+    #TODO: Integrate with m-tech to send sms
+    # send_sms_place_holder_funct(phoneNumber, msg)
     return msg[0]
 
 
@@ -80,13 +82,18 @@ def build_query_response(query):
         return [msg, r.json()]
     # If we miss the keywords then reply with the prefered query formats
     else:
+# Doctors: DR. SAMUEL AMAI
+# Clinical Officers: CO SAMUEL AMAI
+# Nurses: NURSE SAMUEL AMAI
+# NHIF accredited hospital: NHIF KITALE
+# Health Facility: HF KITALE
         msg_items = []
-        msg_items.append("We could not understand your request.")
-        msg_items.append("Example query for doctors: DR SAMUEL AMAI")
-        msg_items.append("Example query for clinical officers: CO SAMUEL AMAI")
-        msg_items.append("Example query for nurse officers: NO SAMUEL AMAI")
-        msg_items.append("Example query for nhif accredited hospitals: NHIF KITALE")
-        msg_items.append("Example query for health facility: HF KITALE")
+        msg_items.append("We could not understand your query. Try these:")
+        msg_items.append("1. Doctors: DR. SAMUEL AMAI")
+        msg_items.append("2. Clinical Officers: CO SAMUEL AMAI")
+        msg_items.append("3. Nurses: NURSE SAMUEL AMAI")
+        msg_items.append("4. NHIF accredited hospital: NHIF KITALE")
+        msg_items.append("5. Health Facility: HF KITALE")
         msg = " ".join(msg_items)
         print msg
         return [msg, {'error':" ".join(msg_items)}]
@@ -110,7 +117,7 @@ def construct_co_response(co_list):
 def construct_nhif_response(nhif_list):
     # Just incase we found ourselves here with an empty list
     if len(nhif_list) < 1:
-        return "Could not find a nurse with that name"
+        return "The location you provided is currently not served by an NHIF accredited hospital."
     count = 1
     msg_items = []
     for nhif in nhif_list:
@@ -126,7 +133,7 @@ def construct_nhif_response(nhif_list):
 def construct_hf_response(hf_list):
     # Just incase we found ourselves here with an empty list
     if len(hf_list) < 1:
-        return "Could not find a nurse with that name"
+        return "We could not find a health facilty in the location you provided"
     count = 1
     msg_items = []
     for hf in hf_list:
