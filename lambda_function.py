@@ -117,7 +117,7 @@ def construct_co_response(co_list):
 def construct_nhif_response(nhif_list):
     # Just incase we found ourselves here with an empty list
     if len(nhif_list) < 1:
-        return "The location you provided is currently not served by an NHIF accredited hospital."
+        return "We could not find an NHIF accredited hospital in the location you provided."
     count = 1
     msg_items = []
     for nhif in nhif_list:
@@ -133,7 +133,7 @@ def construct_nhif_response(nhif_list):
 def construct_hf_response(hf_list):
     # Just incase we found ourselves here with an empty list
     if len(hf_list) < 1:
-        return "We could not find a health facilty in the location you provided"
+        return "We could not find a health facilty in the location you provided."
     count = 1
     msg_items = []
     for hf in hf_list:
