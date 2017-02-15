@@ -7,6 +7,8 @@ broker for SMS client:
 
 import requests
 import re
+import os
+import sys
 
 SECRET_KEY = ''
 SMS_PROVIDER_USERNAME = ''
@@ -23,14 +25,39 @@ NO_KEYWORDS = ['nurse', 'no', 'nursing officer', 'mhuguzi', 'RN', 'Registered Nu
 NHIF_KEYWORDS = ['nhif', 'bima', 'insurance', 'insurance fund', 'health insurance', 'hospital fund']
 HF_KEYWORDS = ['hf', 'hospital', 'dispensary', 'clinic', 'hospitali', 'sanatorium', 'health centre']
 
+# SMS CONFIGS
+try:
+    SMS_USER = os.environ.get('SMS_USER')
+    SMS_PASS = os.environ.get('SMS_PASS')
+    SMS_SHORTCODE = os.environ.get('SMS_SHORTCODE')
+    SMS_SEND_URL = 'http://ke.mtechcomm.com/remote/'
+except KeyError:
+        sys.stderr.write("SMS* environment variables not set\n")
+        sys.exit(1)
+
 
 def lambda_handler(event, context):
     name = event.get("name", "")
     phone_number = event.get("phone_number", "")
     msg = build_query_response(name)
-    #TODO: Integrate with m-tech to send sms
-    # send_sms_place_holder_funct(phoneNumber, msg)
+    resp =send_sms(phone_number, msg[0])
+    print "SMS URL: ",resp.url # Full url with params for sending sms, print should trigger cloudwatch log on aws
+    print "SMS PROVIDER RESPONSE",resp.text # Response from the above url, print should trigger cloudwatch log on aws
     return msg[0]
+
+
+def send_sms(phone_number, msg):
+    params = {
+                        'user': SMS_USER,
+                        'pass': SMS_PASS,
+                        'messageID':0,
+                        'shortCode':SMS_SHORTCODE,
+                        'phoneNumber':phone_number,
+                        'MESSAGE':msg
+                    }
+    resp = requests.get(SMS_SEND_URL, params=params)
+    return resp
+
 
 
 def find_keyword_in_query(query, keywords):
