@@ -30,6 +30,7 @@ try:
     SMS_USER = os.environ.get('SMS_USER')
     SMS_PASS = os.environ.get('SMS_PASS')
     SMS_SHORTCODE = os.environ.get('SMS_SHORTCODE')
+    GA_TRACKING_ID = os.environ.get('GA_TRACKING_ID')
     SMS_SEND_URL = 'http://ke.mtechcomm.com/remote/'
 except KeyError:
         sys.stderr.write("SMS* environment variables not set\n")
@@ -39,8 +40,12 @@ except KeyError:
 def lambda_handler(event, context):
     name = event.get("name", "")
     phone_number = event.get("phone_number", "")
+    # Track Event SMS RECEIVED
+    track_event(GA_TRACKING_ID, 'smsquery', 'receive', encode_cid(phone_number), label='lambda', value=2)
     msg = build_query_response(name)
     resp =send_sms(phone_number, msg[0])
+    # Track Event SMS SENT
+    track_event(GA_TRACKING_ID, 'smsquery', 'send', encode_cid(phone_number), label='lambda', value=2)
     print "SMS URL: ",resp.url # Full url with params for sending sms, print should trigger cloudwatch log on aws
     print "SMS PROVIDER RESPONSE",resp.text # Response from the above url, print should trigger cloudwatch log on aws
     return msg[0]
@@ -109,11 +114,6 @@ def build_query_response(query):
         return [msg, r.json()]
     # If we miss the keywords then reply with the prefered query formats
     else:
-# Doctors: DR. SAMUEL AMAI
-# Clinical Officers: CO SAMUEL AMAI
-# Nurses: NURSE SAMUEL AMAI
-# NHIF accredited hospital: NHIF KITALE
-# Health Facility: HF KITALE
         msg_items = []
         msg_items.append("We could not understand your query. Try these:")
         msg_items.append("1. Doctors: DR. SAMUEL AMAI")
@@ -229,3 +229,37 @@ def parse_cloud_search_results(response):
         else:
             break
     return result_list
+
+
+def encode_cid(phone_number):
+    # TODO: Generate a hash instead of using phone number
+    return phone_number
+
+
+def track_event(tracking_id, category, action, cid, label=None, value=0):
+    """Posts Tracking in info to Google Analytics using measurement protocol.
+
+    Args:
+        tracking_id: The tracking ID of the Google Analytics account in which these data is associated with.
+        category: The name assigned to the group of similar events to track.
+        action: The Specific action being tracked.
+        cid: Anonymous Client Identifier. Ideally, this should be a UUID that is associated with particular user, device
+        label: Label of the event.
+        value: Value of event in this case cost of single sms (averaged at KES 2.00).
+
+    Returns:
+        No return value # If the request fails, it will raise a RequestException. .
+
+    """
+    data = {
+        'v': '1',
+        'tid': tracking_id,
+        'cid': cid,
+        't': 'event',
+        'ec': category,
+        'ea': action,
+        'el': label,
+        'ev': value,
+    }
+    response = requests.post('http://www.google-analytics.com/collect', data=data)
+    response.raise_for_status()
