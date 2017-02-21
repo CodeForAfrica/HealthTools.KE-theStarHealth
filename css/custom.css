@@ -628,3 +628,8 @@ modal-body {
     margin-left: 1.6em;
     list-style-type:square !important;
 }
+.ad {
+    margin:0 auto;
+    margin-top:10px;
+    margin-bottom:10px;
+}
