@@ -1,8 +1,19 @@
-{% include header.html %}
-{% include navbar.html %}
-{% include apps.html %}
+<!DOCTYPE html>
+<html lang="en">
+
+{% include head.html %}
+
 <body>
+
+	{% include navbar.html %}
+
+	{% include apps.html %}
+    
     {{ content }}
+    
+    {% include footer.html %}
+    
+    {% include modals.html %}
+
 </body>
-{% include footer.html %}
-{% include modals.html %}
+</html>

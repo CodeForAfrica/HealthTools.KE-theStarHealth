@@ -3,12 +3,13 @@ story_slug = url.substring(url.indexOf('?') + 1, (url.length));
 get_feed();
 var NODE = null;
 function get_feed() {
-    //Retrieves the feed from the star
-    feed_url = 'https://c6maz9prs8.execute-api.eu-west-1.amazonaws.com/starhealthfeed'
+    //Retrieves the feed from the star 
+    feed_url = 'https://s3-eu-west-1.amazonaws.com/cfa-healthtools-ke/starhealth-news.json'
     $.ajax({
         method: "GET",
         url: feed_url,
         success: (function( data ) {
+            data = JSON.parse(data);
             prepare_data(data);
         })
     })

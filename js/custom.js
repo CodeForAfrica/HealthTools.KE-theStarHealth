@@ -1,6 +1,6 @@
 TAGS = []
-$('#embed_1_modal').html(modal_template('doctor-nurse-search', 'Dodgy Doctors'))
-$('#embed_2_modal').html(modal_template('nhif-facilities-search', 'Am I Covered'))
+$('#embed_1_modal').html(modal_template('dodgy-dr', 'Dodgy Doctors'))
+$('#embed_2_modal').html(modal_template('nhif', 'Am I Covered'))
 $('#embed_3_modal').html(modal_template('nearest-specialist', 'Nearest specialist'))
 
 $('#search-type').change(function() {
@@ -330,8 +330,8 @@ function to_title_case(text) {
 $(document).ready(function() {
     get_feed(); // fetches all stories and displays them
 
-    $('#embed_1_modal').html(modal_template('doctor-nurse-search', 'Dodgy Doctors'))
-    $('#embed_2_modal').html(modal_template('nhif-facilities-search', 'Am I Covered'))
+    $('#embed_1_modal').html(modal_template('dodgy-dr', 'Dodgy Doctors'))
+    $('#embed_2_modal').html(modal_template('nhif', 'Am I Covered?'))
     $('#embed_3_modal').html(modal_template('nearest-specialist', 'Nearest specialist'))
 
     $('#main_search').keypress(function (e) {

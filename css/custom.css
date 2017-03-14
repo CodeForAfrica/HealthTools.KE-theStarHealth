@@ -2,7 +2,7 @@ body {
     background-color: #fff;
     background-repeat: repeat-x;
     background-position: 0 -5px;
-    font-family: "Prelo","Helvetica Neue","Helvetica","Roboto","Arial",sans-serif
+    font-family: "Prelo","Helvetica Neue","Helvetica","Roboto","Arial",sans-serif;
     color:#424242;
     font-size:16px;
 }
@@ -13,7 +13,7 @@ a {
     color:#477dca;
 }
 p {
-    font-family: "Georgia","Cambria","Times New Roman","Times",serif
+    font-family: "Georgia","Cambria","Times New Roman","Times",serif;
     color:#424242;
     font-size: 1em;
     line-height: 1.5;
@@ -50,11 +50,11 @@ spread out top menu items
     color: #d32f2f;
 }
 .navbar-nav {
-    float: none !important; ;
+    float: none !important;
 }
 .nav > li > a {
     color: #fff;
-    padding: 12px 20px; !important;
+    padding: 12px 20px !important;
     font-family: "Prelo","Helvetica Neue","Helvetica","Roboto","Arial",sans-serif;
 }
 .navbar-default .navbar-nav>li>a {
