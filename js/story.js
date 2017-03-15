@@ -54,12 +54,12 @@ function display_story(node) {
 }
 
 function get_classifieds() {
-    feed_url = 'https://lg9kznzua1.execute-api.eu-west-1.amazonaws.com/firstiteration?maxResults=10';
+    feed_url = 'https://s3-eu-west-1.amazonaws.com/cfa-healthtools-ke/starhealth-classifieds.html';
     y = $.ajax({
         method: "get",
         url: feed_url,
-        error: (function( err ) { // It's weird but the success function has no responseText only the error function
-            $('.classifieds').html(err.responseText);
+        success: (function( response ) {
+            $('.classifieds').html(response);
         })
     });
 }
@@ -67,12 +67,12 @@ function get_classifieds() {
 function get_news_feed() {
     title_arr = []
     link_arr = []
-    url = 'https://nv68l36lle.execute-api.eu-west-1.amazonaws.com/prod'
+    url = 'https://s3-eu-west-1.amazonaws.com/cfa-healthtools-ke/starhealth-latest.xml'
     $.ajax({
         method: "get",
         url: url,
-        error: (function( err ) {
-            d = $.parseXML(err.responseText)
+        success: (function( response ) {
+            d = $.parseXML(response)
             $xml = $(d)
             $xml.find("item>link").each(function(){ link_arr.push($(this).text())})
             $xml.find("item>title").each(function(){ title_arr.push($(this).text())})
@@ -84,7 +84,7 @@ function get_news_feed() {
             }
             $('.latest-news-links').html(html)
         }),
-        success: (function( data ) {
+        err: (function( err ) {
             console.log(err)
         })
     });
