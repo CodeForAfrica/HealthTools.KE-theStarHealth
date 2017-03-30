@@ -1,8 +1,6 @@
 // HealthTools
 
-
 $(document).ready(function() {
-
   $('#search-type').change(function() {
     s = $(this).val();
     $('#doctorName').attr('placeholder', 'Start typing ' + s + "'s name");
@@ -66,6 +64,7 @@ $(document).ready(function() {
     $('#dname').html('<h4>Results for ' + toTitleCase(search_type) + ' search: ' + name + '</h4>');
     $('#mybox').html('');
     $('#loading').show();
+
     $.ajax({
       url: url,
       success: function(result) {
@@ -96,6 +95,17 @@ $(document).ready(function() {
             if (k < result.hits.hit.length - 1) str += '<hr>';
           }
         }
+
+        // Not found
+        if (result.hits.found === 0) {
+          str += '<p style="text-align: center;">'
+          str += 'Oops. We could not find any ' + toTitleCase(search_type) + ' by that name.<br/></br>';
+          str += '<small><a href="mailto:starhealth@codeforkenya.org" target="_blank">E-mail us</a></small>';
+          str += '</p>'
+
+          // TODO: Add analytics call
+        }
+
         $('#mybox').html(str);
         $('#loading').hide();
       }
@@ -206,7 +216,6 @@ $(document).ready(function() {
   });
 });
 
-
 // APP 3: Health Facilities
 
 function get_health_facilites(query) {
@@ -241,7 +250,6 @@ function display_health_facilities(list) {
   $('#loading').hide();
 }
 
-
 // TODO: Update this
 
 function modal_template(i, app) {
@@ -262,9 +270,6 @@ function modal_template(i, app) {
   markup += '</div></div></div>';
   return markup;
 }
-
-
-
 
 // Add Fuzzy Matching for CloudSearch to work well
 function cloudsearch_add_fuzzy(search_query) {
