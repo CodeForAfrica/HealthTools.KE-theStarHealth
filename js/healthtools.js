@@ -56,10 +56,11 @@ $(document).ready(function() {
         url = 'https://52ien7p95b.execute-api.eu-west-1.amazonaws.com/prod?q=';
         break;
       default:
-        url = 'https://vfblk3b8eh.execute-api.eu-west-1.amazonaws.com/prod?q=';
+        // Clincal Officers is default
+        url = 'https://2tm3hso2d9.execute-api.eu-west-1.amazonaws.com/prod?q=';
     }
-    name = cloudsearch_remove_keywords(name);
-    url = url + encodeURIComponent(cloudsearch_add_fuzzy(name));
+    search_query = cloudsearch_remove_keywords(name);
+    url = url + encodeURIComponent(cloudsearch_add_fuzzy(search_query));
 
     $('#dname').html('<h4>Results for ' + toTitleCase(search_type) + ' search: ' + name + '</h4>');
     $('#mybox').html('');
@@ -68,45 +69,50 @@ $(document).ready(function() {
     $.ajax({
       url: url,
       success: function(result) {
-        $('#doctorName').val('');
-        str = '';
+        var response_html = '';
         if (search_type == 'doctor') {
           for (var i = 0; i < result.hits.hit.length; i++) {
-            str += 'Name: ' + result.hits.hit[i].fields.name + '<br>';
-            str += 'Reg no.: ' + result.hits.hit[i].fields.reg_no + '<br>';
-            str += 'Qualification: ' + result.hits.hit[i].fields.qualifications + '<br>';
-            str += 'Registration date: ' + new Date(result.hits.hit[i].fields.reg_date).toDateString() + '<br>';
-            if (i < result.hits.hit.length - 1) str += '<hr>';
+            response_html += 'Name: ' + result.hits.hit[i].fields.name + '<br>';
+            response_html += 'Reg no.: ' + result.hits.hit[i].fields.reg_no + '<br>';
+            response_html += 'Qualification: ' + result.hits.hit[i].fields.qualifications + '<br>';
+            response_html += 'Registration date: ' + new Date(result.hits.hit[i].fields.reg_date).toDateString() + '<br>';
+            if (i < result.hits.hit.length - 1) response_html += '<hr>';
           }
         } else if (search_type == 'nurse') {
           for (var j = 0; j < result.hits.hit.length; j++) {
-            str += 'Name: ' + result.hits.hit[j].fields.name + '<br>';
-            str += 'License: ' + result.hits.hit[j].fields.license + '<br>';
-            str += 'Valid until: ' + result.hits.hit[j].fields.valid_until + '<br>';
-            if (j < result.hits.hit.length - 1) str += '<hr>';
+            response_html += 'Name: ' + result.hits.hit[j].fields.name + '<br>';
+            response_html += 'License: ' + result.hits.hit[j].fields.license + '<br>';
+            response_html += 'Valid until: ' + result.hits.hit[j].fields.valid_until + '<br>';
+            if (j < result.hits.hit.length - 1) response_html += '<hr>';
           }
         } else {
+          // Clinical Officers
           for (var k = 0; k < result.hits.hit.length; k++) {
-            str += 'Name: ' + result.hits.hit[k].fields.name + '<br>';
-            str += 'Reg no: ' + result.hits.hit[k].fields.registration_number + '<br>';
-            str += 'Reg date: ' + result.hits.hit[k].fields.registration_date + '<br>';
-            str += 'Address: ' + result.hits.hit[k].fields.address + '<br>';
-            str += 'Qualification: ' + result.hits.hit[k].fields.qualification + '<br>';
-            if (k < result.hits.hit.length - 1) str += '<hr>';
+            response_html += 'Name: ' + result.hits.hit[k].fields.name + '<br>';
+            response_html += 'Reg no: ' + result.hits.hit[k].fields.reg_no + '<br>';
+            response_html += 'Reg date: ' + new Date(result.hits.hit[k].fields.reg_date).toDateString() + '<br>';
+            response_html += 'Address: ' + result.hits.hit[k].fields.address + '<br>';
+            response_html += 'Qualification: ' + result.hits.hit[k].fields.qualifications + '<br>';
+            if (k < result.hits.hit.length - 1) response_html += '<hr>';
           }
         }
 
         // Not found
         if (result.hits.found === 0) {
-          str += '<p style="text-align: center;">'
-          str += 'Oops. We could not find any ' + toTitleCase(search_type) + ' by that name.<br/></br>';
-          str += '<small><a href="mailto:starhealth@codeforkenya.org" target="_blank">E-mail us</a></small>';
-          str += '</p>'
-
-          // TODO: Add analytics call
+          response_html += '<p style="text-align: center;">';
+          response_html += 'Oops. We could not find any ' + toTitleCase(search_type) + ' by that name.';
+          response_html += '</p><p style="text-align: center;">';
+          response_html += '<small><em><a href="mailto:starhealth@codeforkenya.org" target="_blank">E-mail us</a></em></small>';
+          response_html += '</p>';
         }
 
-        $('#mybox').html(str);
+        // Google Analytics Events
+        ga('send', 'event', 'DodgyDr', 'search', name, result.hits.found);
+        ga('theStar.send', 'event', 'DodgyDr', 'search', name, result.hits.found);
+        ga('theStarHealth.send', 'event', 'DodgyDr', 'search', name, result.hits.found);
+        ga('CfAFRICA.send', 'event', 'DodgyDr', 'search', name, result.hits.found);
+
+        $('#mybox').html(response_html);
         $('#loading').hide();
       }
     });
@@ -122,14 +128,21 @@ $(document).ready(function() {
     $.ajax({
       url: url,
       success: function(result) {
-        str = '';
+        var response_html = '';
         for (var i = 0; i < result.hits.hit.length; i++) {
-          str += 'Name: ' + result.hits.hit[i].fields.name + '<br>';
-          str += 'Service point: ' + result.hits.hit[i].fields.service_point + '<br>';
-          str += 'County. :' + result.hits.hit[i].fields.county + '<br>';
-          str += '<hr>';
+          response_html += 'Name: ' + result.hits.hit[i].fields.name + '<br>';
+          response_html += 'Service point: ' + result.hits.hit[i].fields.service_point + '<br>';
+          response_html += 'County: ' + result.hits.hit[i].fields.county + '<br>';
+          response_html += '<hr>';
         }
-        $('#mybox').html(str);
+
+        // Google Analytics Events
+        ga('send', 'event', 'InsuranceHospital', 'search', hospital_location, result.hits.found);
+        ga('theStar.send', 'event', 'InsuranceHospital', 'search', hospital_location, result.hits.found);
+        ga('theStarHealth.send', 'event', 'InsuranceHospital', 'search', hospital_location, result.hits.found);
+        ga('CfAFRICA.send', 'event', 'InsuranceHospital', 'search', hospital_location, result.hits.found);
+
+        $('#mybox').html(response_html);
         $('#hospital_location').val('');
         $('#loading').hide();
       }
@@ -171,48 +184,51 @@ $(document).ready(function() {
         $('#myContribution').html('Only numbers allowed!');
       } else {
         //do the calculations
-        var result;
+        var result = 1700;
 
         if (income < 6000) {
-          result = '150';
+          result = 150;
         } else if (income < 8000) {
-          result = '300';
+          result = 300;
         } else if (income < 12000) {
-          result = '400';
+          result = 400;
         } else if (income < 15000) {
-          result = '500';
+          result = 500;
         } else if (income < 20000) {
-          result = '600';
+          result = 600;
         } else if (income < 25000) {
-          result = '750';
+          result = 750;
         } else if (income < 30000) {
-          result = '850';
+          result = 850;
         } else if (income < 35000) {
-          result = '900';
+          result = 900;
         } else if (income < 40000) {
-          result = '950';
+          result = 950;
         } else if (income < 45000) {
-          result = '1000';
+          result = 1000;
         } else if (income < 50000) {
-          result = '1100';
+          result = 1100;
         } else if (income < 60000) {
-          result = '1200';
+          result = 1200;
         } else if (income < 70000) {
-          result = '1300';
+          result = 1300;
         } else if (income < 80000) {
-          result = '1400';
+          result = 1400;
         } else if (income < 90000) {
-          result = '1500';
+          result = 1500;
         } else if (income < 100000) {
-          result = '1600';
-        } else {
-          result = '1700';
+          result = 1600;
         }
 
-        $('#myContribution').html(result + ' KSH per month');
+        // Google Analytics Events
+        ga('send', 'event', 'InsuranceContribution', 'search', income.toString(), result);
+        ga('theStar.send', 'event', 'InsuranceContribution', 'search', income.toString(), result);
+        ga('theStarHealth.send', 'event', 'InsuranceContribution', 'search', income.toString(), result);
+        ga('CfAFRICA.send', 'event', 'InsuranceContribution', 'search', income.toString(), result);
+
+        $('#myContribution').html('KSH.' + numberWithCommas(result) + ' per month');
       }
     }
-    $('#income').val('');
   });
 });
 
@@ -224,28 +240,44 @@ function get_health_facilites(query) {
     method: 'GET',
     url: url
   }).success(function(data) {
-    display_health_facilities(data.hits.hit);
+    display_health_facilities(data.hits.hit, data.hits.found);
   });
 }
 
-function display_health_facilities(list) {
-  html = '';
+function display_health_facilities(list, found_no) {
+  var response_html = '';
   for (var i = 0; i < list.length; i++) {
     data = list[i].fields;
-    html += '<div class="row">';
-    html += '<div class="col-md-12">';
-    html += 'Name: ' + data.name + '<br>';
-    html += 'KEPH level name: ' + data.keph_level_name + '<br>';
-    html += 'Facility type: ' + data.facility_type_name + '<br>';
-    html += 'Owner: ' + data.owner_name + '<br>';
-    html += 'County: ' + data.county_name + '<br>';
-    html += 'Constituency: ' + data.constituency_name + '<br>';
-    html += 'Ward: ' + data.ward_name + '<br>';
-    html += '</div>';
-    html += '</div>';
-    html += '<hr>';
+    response_html += '<div class="row">';
+    response_html += '<div class="col-md-12">';
+    response_html += 'Name: ' + data.name + '<br>';
+    response_html += 'KEPH level name: ' + data.keph_level_name + '<br>';
+    response_html += 'Facility type: ' + data.facility_type_name + '<br>';
+    response_html += 'Owner: ' + data.owner_name + '<br>';
+    response_html += 'County: ' + data.county_name + '<br>';
+    response_html += 'Constituency: ' + data.constituency_name + '<br>';
+    response_html += 'Ward: ' + data.ward_name + '<br>';
+    response_html += '</div>';
+    response_html += '</div>';
+    response_html += '<hr>';
   }
-  $('#mybox').html(html);
+
+  // Not found
+  if (found_no === 0) {
+    response_html += '<p style="text-align: center;">';
+    response_html += 'Oops... We could not find any hospital that matches your search.';
+    response_html += '</p><p style="text-align: center;">';
+    response_html += '<small><em><a href="mailto:starhealth@codeforkenya.org" target="_blank">E-mail us</a></em></small>';
+    response_html += '</p>';
+  }
+
+  // Google Analytics Events
+  ga('send', 'event', 'HospitalFinder', 'search', query, found_no);
+  ga('theStar.send', 'event', 'HospitalFinder', 'search', query, found_no);
+  ga('theStarHealth.send', 'event', 'HospitalFinder', 'search', query, found_no);
+  ga('CfAFRICA.send', 'event', 'HospitalFinder', 'search', query, found_no);
+
+  $('#mybox').html(response_html);
   $('#areaname').val('');
   $('#loading').hide();
 }
@@ -273,9 +305,12 @@ function modal_template(i, app) {
 
 // Add Fuzzy Matching for CloudSearch to work well
 function cloudsearch_add_fuzzy(search_query) {
-  search_query.trim();
+  search_query = search_query.trim();
   var search_terms = search_query.split(' ');
-  search_query = ''; // Reset to re-use
+
+  search_query += '|'; // Start with the exact match
+
+  // TODO: Update to loop through combinations like a matrix
   for (var i = search_terms.length - 1; i >= 0; i--) {
     search_query += search_terms[i] + '|';
     search_query += search_terms[i] + '~1|';
@@ -283,18 +318,16 @@ function cloudsearch_add_fuzzy(search_query) {
   }
   // Remove last or (|) operator
   search_query = search_query.substring(0, search_query.length - 1);
-  console.log(search_query);
   return search_query.trim();
 }
 
 // Function to remove keywords
 function cloudsearch_remove_keywords(search_query) {
   search_query = search_query.trim();
+  search_query = search_query.toLowerCase();
   var keywords = ['dr', 'dr.', 'doctor', 'nurse', 'co', 'c.o.', 'c.o', 'clinical officer'];
   for (var i = keywords.length - 1; i >= 0; i--) {
     search_query = search_query.replace(new RegExp('^' + keywords[i]), '');
-    search_query = search_query.replace(new RegExp('^' + keywords[i].toUpperCase), '');
-    search_query = search_query.replace(new RegExp('^' + toTitleCase(keywords[i])), '');
   }
   return search_query.trim();
 }
