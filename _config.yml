@@ -5,3 +5,6 @@ url: http://health.the-star.co.ke
 
 timezone: Africa/Nairobi
 exclude: [ _sms ]
+
+# Defined in _includes/analytics.html
+google_analytics: 
