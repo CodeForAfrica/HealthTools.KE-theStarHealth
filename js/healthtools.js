@@ -47,6 +47,7 @@ $(document).ready(function() {
     var search_query = $('#doctorName').val();
     var search_type = $('#search-type').val();
     var url = '';
+    var result_no = '';
 
     switch (search_type) {
       case 'doctor':
@@ -70,7 +71,7 @@ $(document).ready(function() {
       success: function(result) {
         var response_html = '';
         if (search_type == 'doctor') {
-          var result_found = result.data.doctors.length;
+          result_no = result.data.doctors.length;
           for (var i = 0; i < result.data.doctors.length; i++) {
             response_html += 'Name: ' + result.data.doctors[i]._source.name + '<br>';
             response_html += 'Reg no.: ' + result.data.doctors[i]._source.reg_no + '<br>';
@@ -79,7 +80,7 @@ $(document).ready(function() {
             if (i < result.data.doctors.length - 1) response_html += '<hr>';
           }
         } else if (search_type == 'nurse') {
-          var result_found = result.data.nurses.length;
+          result_no = result.data.nurses.length;
           for (var j = 0; j < result.data.nurses.length; j++) {
             response_html += 'Name: ' + result.data.nurses[j].name + '<br>';
             response_html += 'License: ' + result.data.nurses[j].license + '<br>';
@@ -87,7 +88,7 @@ $(document).ready(function() {
             if (j < result.data.nurses.length - 1) response_html += '<hr>';
           }
         } else {
-          var result_found = result.data.clinical_officers.length;
+          result_no = result.data.clinical_officers.length;
           // Clinical Officers
           for (var k = 0; k < result.data.clinical_officers.length; k++) {
             response_html += 'Name: ' + result.data.clinical_officers[k]._source.name + '<br>';
@@ -100,7 +101,7 @@ $(document).ready(function() {
         }
 
         // Not found
-        if (result_found === 0) {
+        if (result_no === 0) {
           response_html += '<p style="text-align: center;">';
           response_html += 'Oops. We could not find any ' + toTitleCase(search_type) + ' by that name.';
           response_html += '</p><p style="text-align: center;">';
@@ -109,10 +110,10 @@ $(document).ready(function() {
         }
 
         // Google Analytics Events
-        ga('send', 'event', 'DodgyDr', 'search', name, result_found);
-        ga('theStar.send', 'event', 'DodgyDr', 'search', name, result_found);
-        ga('theStarHealth.send', 'event', 'DodgyDr', 'search', name, result_found);
-        ga('CfAFRICA.send', 'event', 'DodgyDr', 'search', name, result_found);
+        ga('send', 'event', 'DodgyDr', 'search', name, result_no);
+        ga('theStar.send', 'event', 'DodgyDr', 'search', name, result_no);
+        ga('theStarHealth.send', 'event', 'DodgyDr', 'search', name, result_no);
+        ga('CfAFRICA.send', 'event', 'DodgyDr', 'search', name, result_no);
 
         $('#mybox').html(response_html);
         $('#loading').hide();
