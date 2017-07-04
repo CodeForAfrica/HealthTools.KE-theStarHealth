@@ -1,6 +1,6 @@
 TAGS = [];
-FEED = null;
-TAGS = null;
+var FEED = null;
+var TAGS = null;
 
 function get_feed() {
   //Retrieves the feed from the star
@@ -198,11 +198,14 @@ function format_node(node) {
 }
 
 function first_paragraph(text) {
-  arr = text.split('.');
-  if (arr.length > 1) {
-    str = arr[0] + '. ' + arr[1] + '.';
-  } else {
-    str = arr[0] + '.';
+  var str = '';
+  if (text != null) {
+    arr = text.split('.');
+    if (arr.length > 1) {
+      str = arr[0] + '. ' + arr[1] + '.';
+    } else {
+      str = arr[0] + '.';
+    }
   }
   return str;
 }
