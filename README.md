@@ -2,22 +2,17 @@
 
 HealthTools is a suite of data-driven web and SMS-based tools that help citizens check everything from medicine prices and hospital services, to whether their doctor is a quack or not. The toolkit was pioneered in Kenya, and has since also been deployed in Ghana, Nigeria, and South Africa. The original project can be accessed at: http://health.the-star.co.ke
 
-## theStar Health Website
+## Installation
 
-theStar Health website is jekyll / [Github Pages](https://pages.github.com/) powered.
+?
 
-## theStar Health SMS broker
+## Testing
 
-theStarHealth SMS broker is a AWS Lambda function and is in `_sms` folder.
+?
 
-This is the SMS handler component of StarHealth. It:
-* Receives HTTP calls from the SMS provider
-* Queries CloudSearch with the search query received on SMS
-* Returns text response - i.e. the SMS to be sent back to the user
+## Contributing
 
-The service is implemented as an AWS Lambda function - triggered by HTTP calls to a connected AWS API Gateway endpoint.
-
-Functionality is a few lines of code and pretty self-explanatory:  `lambda_function.py`
+?
 
 ---
 
