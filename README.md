@@ -4,15 +4,21 @@ HealthTools is a suite of data-driven web and SMS-based tools that help citizens
 
 ## Installation
 
-?
+<!-- TODO: Needs improvement -->
+
+the Star Health website is a [Jekyll](https://jekyllrb.com) / Github Pages powered website. To install ...
 
 ## Testing
 
-?
+<!-- TODO: Needs improvement -->
+
+...
 
 ## Contributing
 
-?
+<!-- TODO: Needs improvement -->
+
+...
 
 ---
 
