@@ -3,10 +3,30 @@
 HealthTools is a suite of data-driven web and SMS-based tools that help citizens check everything from medicine prices and hospital services, to whether their doctor is a quack or not. The toolkit was pioneered in Kenya, and has since also been deployed in Ghana, Nigeria, and South Africa. The original project can be accessed at: http://health.the-star.co.ke
 
 ## Installation
+The Star Health website is a [Jekyll](https://jekyllrb.com) / Github Pages powered website. To install:
+- Navigate to a directory using any terminal
+​  
+- Clone this repository in that directory
+​    
+  - Using SSH: `git clone git@github.com:CodeForAfrica/HealthTools.KE-theStarHealth.git`  
+  - Using HTTP: `git clone https://github.com/CodeForAfrica/HealthTools.KE-theStarHealth.git`  
+ 
+- Navigate to the cloned repository  
+  
+  - `cd HealthTools.KE-theStarHealth` 
 
-<!-- TODO: Needs improvement -->
+- Install Ruby globally
+    - `gem install ruby`
 
-the Star Health website is a [Jekyll](https://jekyllrb.com) / Github Pages powered website. To install ...
+- Install Jekyll and Bundler gems through RubyGems
+    - `gem install jekyll bundler`
+
+- Generate a build folder for the application
+    - `jekyll build`
+
+- Run the application
+    - `jekyll serve`
+ - View the application on `localhost:4000`
 
 ## Testing
 
@@ -16,9 +36,12 @@ the Star Health website is a [Jekyll](https://jekyllrb.com) / Github Pages power
 
 ## Contributing
 
-<!-- TODO: Needs improvement -->
-
-...
+Contributions are always welcomed to the project. If you are interested in enhancing the features in the project, follow these simple steps:
+ * Fork the project to your repository then clone it to your local machine.
+ * Create a new branch and make the necessary enhancement to the features.
+ * If the you wish to update an existing enhancement submit a pull request.
+ * Pull requests should follow the standard format adopted for this project.
+ * If you are unsure about certain areas in the project feel to ask for assistance.
 
 ---
 
