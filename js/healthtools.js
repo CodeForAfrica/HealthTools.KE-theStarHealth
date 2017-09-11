@@ -44,23 +44,23 @@ $(document).ready(function() {
   });
 
   $('#grabDetails').click(function() {
-    var name = $('#doctorName').val();
+    var search_query = $('#doctorName').val();
     var search_type = $('#search-type').val();
     var url = '';
+    var result_no = '';
 
     switch (search_type) {
       case 'doctor':
-        url = 'https://kg1nox6m9k.execute-api.eu-west-1.amazonaws.com/prod?q=';
+        url = 'https://api.healthtools.codeforafrica.org/doctors/search.json?q=';
         break;
       case 'nurse':
-        url = 'https://52ien7p95b.execute-api.eu-west-1.amazonaws.com/prod?q=';
+        url = 'https://api.healthtools.codeforafrica.org/nurses/search.json?q=';
         break;
       default:
         // Clincal Officers is default
-        url = 'https://2tm3hso2d9.execute-api.eu-west-1.amazonaws.com/prod?q=';
+        url = 'https://api.healthtools.codeforafrica.org/clinical-officers/search.json?q=';
     }
-    search_query = cloudsearch_remove_keywords(name);
-    url = url + encodeURIComponent(cloudsearch_add_fuzzy(search_query));
+    url = url + encodeURIComponent(search_query);
 
     $('#dname').html('<h4>Results for ' + toTitleCase(search_type) + ' search: ' + name + '</h4>');
     $('#mybox').html('');
@@ -71,34 +71,37 @@ $(document).ready(function() {
       success: function(result) {
         var response_html = '';
         if (search_type == 'doctor') {
-          for (var i = 0; i < result.hits.hit.length; i++) {
-            response_html += 'Name: ' + result.hits.hit[i].fields.name + '<br>';
-            response_html += 'Reg no.: ' + result.hits.hit[i].fields.reg_no + '<br>';
-            response_html += 'Qualification: ' + result.hits.hit[i].fields.qualifications + '<br>';
-            response_html += 'Registration date: ' + new Date(result.hits.hit[i].fields.reg_date).toDateString() + '<br>';
-            if (i < result.hits.hit.length - 1) response_html += '<hr>';
+          result_no = result.data.doctors.length;
+          for (var i = 0; i < result.data.doctors.length; i++) {
+            response_html += 'Name: ' + result.data.doctors[i]._source.name + '<br>';
+            response_html += 'Reg no.: ' + result.data.doctors[i]._source.reg_no + '<br>';
+            response_html += 'Qualification: ' + result.data.doctors[i]._source.qualifications + '<br>';
+            response_html += 'Registration date: ' + new Date(result.data.doctors[i]._source.reg_date).toDateString() + '<br>';
+            if (i < result.data.doctors.length - 1) response_html += '<hr>';
           }
         } else if (search_type == 'nurse') {
-          for (var j = 0; j < result.hits.hit.length; j++) {
-            response_html += 'Name: ' + result.hits.hit[j].fields.name + '<br>';
-            response_html += 'License: ' + result.hits.hit[j].fields.license + '<br>';
-            response_html += 'Valid until: ' + result.hits.hit[j].fields.valid_until + '<br>';
-            if (j < result.hits.hit.length - 1) response_html += '<hr>';
+          result_no = result.data.nurses.length;
+          for (var j = 0; j < result.data.nurses.length; j++) {
+            response_html += 'Name: ' + result.data.nurses[j].name + '<br>';
+            response_html += 'License: ' + result.data.nurses[j].license + '<br>';
+            response_html += 'Valid until: ' + result.data.nurses[j].valid_till + '<br>';
+            if (j < result.data.nurses.length - 1) response_html += '<hr>';
           }
         } else {
+          result_no = result.data.clinical_officers.length;
           // Clinical Officers
-          for (var k = 0; k < result.hits.hit.length; k++) {
-            response_html += 'Name: ' + result.hits.hit[k].fields.name + '<br>';
-            response_html += 'Reg no: ' + result.hits.hit[k].fields.reg_no + '<br>';
-            response_html += 'Reg date: ' + new Date(result.hits.hit[k].fields.reg_date).toDateString() + '<br>';
-            response_html += 'Address: ' + result.hits.hit[k].fields.address + '<br>';
-            response_html += 'Qualification: ' + result.hits.hit[k].fields.qualifications + '<br>';
-            if (k < result.hits.hit.length - 1) response_html += '<hr>';
+          for (var k = 0; k < result.data.clinical_officers.length; k++) {
+            response_html += 'Name: ' + result.data.clinical_officers[k]._source.name + '<br>';
+            response_html += 'Reg no: ' + result.data.clinical_officers[k]._source.reg_no + '<br>';
+            response_html += 'Reg date: ' + new Date(result.data.clinical_officers[k]._source.reg_date).toDateString() + '<br>';
+            response_html += 'Address: ' + result.data.clinical_officers[k]._source.address + '<br>';
+            response_html += 'Qualification: ' + result.data.clinical_officers[k]._source.qualifications + '<br>';
+            if (k < result.data.clinical_officers.length - 1) response_html += '<hr>';
           }
         }
 
         // Not found
-        if (result.hits.found === 0) {
+        if (result_no === 0) {
           response_html += '<p style="text-align: center;">';
           response_html += 'Oops. We could not find any ' + toTitleCase(search_type) + ' by that name.';
           response_html += '</p><p style="text-align: center;">';
@@ -107,10 +110,10 @@ $(document).ready(function() {
         }
 
         // Google Analytics Events
-        ga('send', 'event', 'DodgyDr', 'search', name, result.hits.found);
-        ga('theStar.send', 'event', 'DodgyDr', 'search', name, result.hits.found);
-        ga('theStarHealth.send', 'event', 'DodgyDr', 'search', name, result.hits.found);
-        ga('CfAFRICA.send', 'event', 'DodgyDr', 'search', name, result.hits.found);
+        ga('send', 'event', 'DodgyDr', 'search', name, result_no);
+        ga('theStar.send', 'event', 'DodgyDr', 'search', name, result_no);
+        ga('theStarHealth.send', 'event', 'DodgyDr', 'search', name, result_no);
+        ga('CfAFRICA.send', 'event', 'DodgyDr', 'search', name, result_no);
 
         $('#mybox').html(response_html);
         $('#loading').hide();
