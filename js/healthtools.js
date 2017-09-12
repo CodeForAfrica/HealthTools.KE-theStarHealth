@@ -236,7 +236,11 @@ $(document).ready(function() {
 });
 
 // APP 3: Health Facilities
-
+/**
+ * @function get_health_facilites(query
+ * @description Get health facilities
+ * @param {string} query
+ */
 function get_health_facilites(query) {
   url = 'https://187mzjvmpd.execute-api.eu-west-1.amazonaws.com/prod?q=' + query + '~2';
   $.ajax({
@@ -246,7 +250,12 @@ function get_health_facilites(query) {
     display_health_facilities(data.hits.hit, data.hits.found);
   });
 }
-
+/**
+ * @function display_health_facilities
+ * @description Display Health Facilities
+ * @param {any} list
+ * @param {int} found_no
+ */
 function display_health_facilities(list, found_no) {
   var response_html = '';
   for (var i = 0; i < list.length; i++) {
@@ -285,8 +294,13 @@ function display_health_facilities(list, found_no) {
   $('#loading').hide();
 }
 
-// TODO: Update this
-
+/**
+ * @function modal_template
+ * @description Creates a template for the modal
+ * @param {any} i
+ * @param {any} app
+ * @returns {any} div
+ */
 function modal_template(i, app) {
   markup = '<div class="modal-dialog" role="document">';
   markup += '<div class="modal-content">';
@@ -306,7 +320,12 @@ function modal_template(i, app) {
   return markup;
 }
 
-// Add Fuzzy Matching for CloudSearch to work well
+/**
+ * @function cloudsearch_add_fuzzy
+ * @description Add Fuzzy Matching for CloudSearch to work well
+ * @param {string} search_query
+ * @returns {string}
+ */
 function cloudsearch_add_fuzzy(search_query) {
   search_query = search_query.trim();
   var search_terms = search_query.split(' ');
@@ -324,7 +343,12 @@ function cloudsearch_add_fuzzy(search_query) {
   return search_query.trim();
 }
 
-// Function to remove keywords
+/**
+ * @function cloudsearch_remove_keywords
+ * @description Function to remove keywords
+ * @param {string} search_query
+ * @returns {string}
+ */
 function cloudsearch_remove_keywords(search_query) {
   search_query = search_query.trim();
   search_query = search_query.toLowerCase();

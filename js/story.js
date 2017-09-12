@@ -2,8 +2,14 @@ url = window.location.href;
 story_slug = url.substring(url.indexOf('?') + 1, (url.length));
 get_feed();
 var NODE = null;
+/**
+ * @function get_feed
+ * @description Retrieves the feed from the star API
+ * @param {void} - void
+ * @return {void} void
+ */
 function get_feed() {
-    //Retrieves the feed from the star 
+    //Retrieves the feed from the star
     feed_url = 'https://s3-eu-west-1.amazonaws.com/cfa-healthtools-ke/starhealth-news.json'
     $.ajax({
         method: "GET",
@@ -15,8 +21,14 @@ function get_feed() {
     })
 }
 
+/**
+ * @function prepare_data
+ * @description This function loops through all stories until the story with a matching slug
+ * is found
+ * @param {object} data - JSON data from the GET request in get_feed() function
+ * @return {void} - void
+ */
 function prepare_data(data) {
-    //Loop through all stories until you find the story that has a matching slug
     for (var i = 0; i < data.nodes.length; i++) {
         node = data.nodes[i].node;
         if (slugify(node.title) == story_slug) {
@@ -28,6 +40,13 @@ function prepare_data(data) {
     }
 }
 
+/**
+ * @function slugify
+ * @description This function slugifies string data using regular expression
+ * @param {any} text - string data from the prepare_data function
+ * @returns {string} - slugified string
+ *
+ */
 function slugify(text) {
     return text.toString().toLowerCase()
         .replace(/\s+/g, '-')           // Replace spaces with -
@@ -37,6 +56,12 @@ function slugify(text) {
         .replace(/-+$/, '');            // Trim - from end of text
 }
 
+/**
+ * @function display_story
+ * @description This function displays the story content in the story section
+ * @param {object} node - object data that contains the story content
+ * @return {void} void
+ */
 function display_story(node) {
     //Show the story content in the story section
     $('.title').html(node.title)
@@ -53,6 +78,12 @@ function display_story(node) {
     $('.story-body').html(node.body)
 }
 
+/**
+ * @function get_classifieds
+ * @description This function gets the classfieds feeds from star
+ * @param {void} - void
+ * @return {void} - void
+ */
 function get_classifieds() {
     feed_url = 'https://s3-eu-west-1.amazonaws.com/cfa-healthtools-ke/starhealth-classifieds.html';
     y = $.ajax({
@@ -64,6 +95,13 @@ function get_classifieds() {
     });
 }
 
+/**
+ * @function get_news_feed
+ * @description This function makes a GET request to obtain current news feed
+ * from star
+ * @param {void} - void
+ * @return {void} - void
+ */
 function get_news_feed() {
     title_arr = []
     link_arr = []
@@ -90,6 +128,12 @@ function get_news_feed() {
     });
 }
 
+/**
+ * @function social_media_share_button_update
+ * @description This functions makes the share button share the correct story
+ * @param {string} title - title of the story
+ * @return {void} - void
+ */
 function social_media_share_button_update(title) {
     //Make the share buttons share the correct story
     $('.rrssb-facebook a').attr('href', 'https://www.facebook.com/sharer/sharer.php?u=' + window.location.href)
