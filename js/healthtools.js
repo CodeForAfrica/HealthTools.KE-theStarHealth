@@ -186,7 +186,7 @@ $(document).ready(function() {
       if (!jQuery.isNumeric(income)) {
         $('#myContribution').html('Only numbers allowed!');
       } else {
-        //do the calculations
+        //Do the calculations
         var result = 1700;
 
         if (income < 6000) {
@@ -239,7 +239,7 @@ $(document).ready(function() {
 /**
  * @function get_health_facilites(query
  * @description Get health facilities
- * @param {string} query
+ * @param {string} query - Search data from user input
  */
 function get_health_facilites(query) {
   url = 'https://187mzjvmpd.execute-api.eu-west-1.amazonaws.com/prod?q=' + query + '~2';
@@ -252,9 +252,9 @@ function get_health_facilites(query) {
 }
 /**
  * @function display_health_facilities
- * @description Display Health Facilities
- * @param {any} list
- * @param {int} found_no
+ * @description Display health facilities
+ * @param {array} list - Array of health facilities
+ * @param {int} found_no - Number of found health facilities
  */
 function display_health_facilities(list, found_no) {
   var response_html = '';
@@ -297,9 +297,9 @@ function display_health_facilities(list, found_no) {
 /**
  * @function modal_template
  * @description Creates a template for the modal
- * @param {any} i
- * @param {any} app
- * @returns {any} div
+ * @param {string} i - Search query (dodgy-dr, nhif or nearest-specialist)
+ * @param {string} app - Name of the application (Dodgy Doctors, Am I Covered? or Nearest specialist)
+ * @returns {string} - HTML markup
  */
 function modal_template(i, app) {
   markup = '<div class="modal-dialog" role="document">';
@@ -323,8 +323,8 @@ function modal_template(i, app) {
 /**
  * @function cloudsearch_add_fuzzy
  * @description Add Fuzzy Matching for CloudSearch to work well
- * @param {string} search_query
- * @returns {string}
+ * @param {string} search_query - Search data from user input
+ * @returns {string} - Trimmed searh query
  */
 function cloudsearch_add_fuzzy(search_query) {
   search_query = search_query.trim();
@@ -346,8 +346,8 @@ function cloudsearch_add_fuzzy(search_query) {
 /**
  * @function cloudsearch_remove_keywords
  * @description Function to remove keywords
- * @param {string} search_query
- * @returns {string}
+ * @param {string} search_query - Search string from user input
+ * @returns {string} - Trimmed search query
  */
 function cloudsearch_remove_keywords(search_query) {
   search_query = search_query.trim();
