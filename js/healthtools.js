@@ -46,7 +46,7 @@ $(document).ready(function() {
   $('#grabDetails').click(function() {
     var search_query = $('#doctorName').val();
     var search_type = $('#search-type').val();
-    var api_url = 'https://dev.api.healthtools.codeforafrica.org'
+    var api_url = 'https://api.healthtools.codeforafrica.org'
     var url = '';
     var result_no = '';
 
@@ -69,40 +69,43 @@ $(document).ready(function() {
 
     $.ajax({
       url: url,
-      success: function(result) {
-        var response_html = '';
+      success: function(response) {
+        var response_html = ''
+        var result = response.result
+        var result_no = result.total
+        if (result_no > 10) result_no = 10
+
         if (search_type == 'doctor') {
-          result_no = result.data.doctors.length;
-          for (var i = 0; i < result.data.doctors.length; i++) {
-            response_html += 'Name: ' + result.data.doctors[i]._source.name + '<br>';
-            response_html += 'Reg no.: ' + result.data.doctors[i]._source.reg_no + '<br>';
-            response_html += 'Qualification: ' + result.data.doctors[i]._source.qualifications + '<br>';
-            response_html += 'Registration date: ' + new Date(result.data.doctors[i]._source.reg_date).toDateString() + '<br>';
-            if (i < result.data.doctors.length - 1) response_html += '<hr>';
+          for (var i = 0; i < result_no; i++) {
+            response_html += 'Name: ' + result.hits[i]._source.name + '<br>';
+            response_html += 'Reg no.: ' + result.hits[i]._source.reg_no + '<br>';
+            response_html += 'Qualification: ' + result.hits[i]._source.qualifications + '<br>';
+            response_html += 'Registration date: ' + new Date(result.hits[i]._source.reg_date).toDateString() + '<br>';
+            if (i < result_no - 1) response_html += '<hr>';
+            
           }
         } else if (search_type == 'nurse') {
-          result_no = result.data.nurses.length;
-          for (var j = 0; j < result.data.nurses.length; j++) {
-            response_html += 'Name: ' + result.data.nurses[j].name + '<br>';
-            response_html += 'License: ' + result.data.nurses[j].license + '<br>';
-            response_html += 'Valid until: ' + result.data.nurses[j].valid_till + '<br>';
-            if (j < result.data.nurses.length - 1) response_html += '<hr>';
+          for (var j = 0; j < result_no; j++) {
+            response_html += 'Name: ' + result.hits[j].name + '<br>';
+            response_html += 'License No: ' + result.hits[j].license_no + '<br>';
+            response_html += 'Valid until: ' + result.hits[j].valid_till + '<br>';
+            if (j < result_no - 1) response_html += '<hr>';
           }
         } else {
-          result_no = result.data.clinical_officers.length;
           // Clinical Officers
-          for (var k = 0; k < result.data.clinical_officers.length; k++) {
-            response_html += 'Name: ' + result.data.clinical_officers[k]._source.name + '<br>';
-            response_html += 'Reg no: ' + result.data.clinical_officers[k]._source.reg_no + '<br>';
-            response_html += 'Reg date: ' + new Date(result.data.clinical_officers[k]._source.reg_date).toDateString() + '<br>';
-            response_html += 'Address: ' + result.data.clinical_officers[k]._source.address + '<br>';
-            response_html += 'Qualification: ' + result.data.clinical_officers[k]._source.qualifications + '<br>';
-            if (k < result.data.clinical_officers.length - 1) response_html += '<hr>';
+          for (var k = 0; k < result_no; k++) {
+            console.log(result.hits[k])
+            response_html += 'Name: ' + result.hits[k]._source.name + '<br>';
+            response_html += 'Reg no: ' + result.hits[k]._source.reg_no + '<br>';
+            response_html += 'Reg date: ' + new Date(result.hits[k]._source.reg_date).toDateString() + '<br>';
+            response_html += 'Address: ' + result.hits[k]._source.address + '<br>';
+            response_html += 'Qualification: ' + result.hits[k]._source.qualifications + '<br>';
+            if (k < result_no - 1) response_html += '<hr>';
           }
         }
 
         // Not found
-        if (result_no === 0) {
+        if (result_no == 0) {
           response_html += '<p style="text-align: center;">';
           response_html += 'Oops. We could not find any ' + toTitleCase(search_type) + ' by that name.';
           response_html += '</p><p style="text-align: center;">';
