@@ -46,19 +46,20 @@ $(document).ready(function() {
   $('#grabDetails').click(function() {
     var search_query = $('#doctorName').val();
     var search_type = $('#search-type').val();
+    var api_url = 'https://dev.api.healthtools.codeforafrica.org'
     var url = '';
     var result_no = '';
 
     switch (search_type) {
       case 'doctor':
-        url = 'https://api.healthtools.codeforafrica.org/doctors/search.json?q=';
+        url = api_url + '/search/doctors?q=';
         break;
       case 'nurse':
-        url = 'https://api.healthtools.codeforafrica.org/nurses/search.json?q=';
+        url = api_url + '/search/nurses?q=';
         break;
       default:
         // Clincal Officers is default
-        url = 'https://api.healthtools.codeforafrica.org/clinical-officers/search.json?q=';
+        url = api_url + '/search/clinical-officers?q=';
     }
     url = url + encodeURIComponent(search_query);
 
