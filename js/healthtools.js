@@ -46,19 +46,20 @@ $(document).ready(function() {
   $('#grabDetails').click(function() {
     var search_query = $('#doctorName').val();
     var search_type = $('#search-type').val();
+    var api_url = 'https://api.healthtools.codeforafrica.org'
     var url = '';
     var result_no = '';
 
     switch (search_type) {
       case 'doctor':
-        url = 'https://api.healthtools.codeforafrica.org/doctors/search.json?q=';
+        url = api_url + '/search/doctors?q=';
         break;
       case 'nurse':
-        url = 'https://api.healthtools.codeforafrica.org/nurses/search.json?q=';
+        url = api_url + '/search/nurses?q=';
         break;
       default:
         // Clincal Officers is default
-        url = 'https://api.healthtools.codeforafrica.org/clinical-officers/search.json?q=';
+        url = api_url + '/search/clinical-officers?q=';
     }
     url = url + encodeURIComponent(search_query);
 
@@ -68,40 +69,43 @@ $(document).ready(function() {
 
     $.ajax({
       url: url,
-      success: function(result) {
-        var response_html = '';
+      success: function(response) {
+        var response_html = ''
+        var result = response.result
+        var result_no = result.total
+        if (result_no > 10) result_no = 10
+
         if (search_type == 'doctor') {
-          result_no = result.data.doctors.length;
-          for (var i = 0; i < result.data.doctors.length; i++) {
-            response_html += 'Name: ' + result.data.doctors[i]._source.name + '<br>';
-            response_html += 'Reg no.: ' + result.data.doctors[i]._source.reg_no + '<br>';
-            response_html += 'Qualification: ' + result.data.doctors[i]._source.qualifications + '<br>';
-            response_html += 'Registration date: ' + new Date(result.data.doctors[i]._source.reg_date).toDateString() + '<br>';
-            if (i < result.data.doctors.length - 1) response_html += '<hr>';
+          for (var i = 0; i < result_no; i++) {
+            response_html += 'Name: ' + result.hits[i]._source.name + '<br>';
+            response_html += 'Reg no.: ' + result.hits[i]._source.reg_no + '<br>';
+            response_html += 'Qualification: ' + result.hits[i]._source.qualifications + '<br>';
+            response_html += 'Registration date: ' + new Date(result.hits[i]._source.reg_date).toDateString() + '<br>';
+            if (i < result_no - 1) response_html += '<hr>';
+            
           }
         } else if (search_type == 'nurse') {
-          result_no = result.data.nurses.length;
-          for (var j = 0; j < result.data.nurses.length; j++) {
-            response_html += 'Name: ' + result.data.nurses[j].name + '<br>';
-            response_html += 'License: ' + result.data.nurses[j].license + '<br>';
-            response_html += 'Valid until: ' + result.data.nurses[j].valid_till + '<br>';
-            if (j < result.data.nurses.length - 1) response_html += '<hr>';
+          for (var j = 0; j < result_no; j++) {
+            response_html += 'Name: ' + result.hits[j].name + '<br>';
+            response_html += 'License No: ' + result.hits[j].license_no + '<br>';
+            response_html += 'Valid until: ' + result.hits[j].valid_till + '<br>';
+            if (j < result_no - 1) response_html += '<hr>';
           }
         } else {
-          result_no = result.data.clinical_officers.length;
           // Clinical Officers
-          for (var k = 0; k < result.data.clinical_officers.length; k++) {
-            response_html += 'Name: ' + result.data.clinical_officers[k]._source.name + '<br>';
-            response_html += 'Reg no: ' + result.data.clinical_officers[k]._source.reg_no + '<br>';
-            response_html += 'Reg date: ' + new Date(result.data.clinical_officers[k]._source.reg_date).toDateString() + '<br>';
-            response_html += 'Address: ' + result.data.clinical_officers[k]._source.address + '<br>';
-            response_html += 'Qualification: ' + result.data.clinical_officers[k]._source.qualifications + '<br>';
-            if (k < result.data.clinical_officers.length - 1) response_html += '<hr>';
+          for (var k = 0; k < result_no; k++) {
+            console.log(result.hits[k])
+            response_html += 'Name: ' + result.hits[k]._source.name + '<br>';
+            response_html += 'Reg no: ' + result.hits[k]._source.reg_no + '<br>';
+            response_html += 'Reg date: ' + new Date(result.hits[k]._source.reg_date).toDateString() + '<br>';
+            response_html += 'Address: ' + result.hits[k]._source.address + '<br>';
+            response_html += 'Qualification: ' + result.hits[k]._source.qualifications + '<br>';
+            if (k < result_no - 1) response_html += '<hr>';
           }
         }
 
         // Not found
-        if (result_no === 0) {
+        if (result_no == 0) {
           response_html += '<p style="text-align: center;">';
           response_html += 'Oops. We could not find any ' + toTitleCase(search_type) + ' by that name.';
           response_html += '</p><p style="text-align: center;">';
@@ -186,7 +190,7 @@ $(document).ready(function() {
       if (!jQuery.isNumeric(income)) {
         $('#myContribution').html('Only numbers allowed!');
       } else {
-        //do the calculations
+        //Do the calculations
         var result = 1700;
 
         if (income < 6000) {
@@ -236,7 +240,11 @@ $(document).ready(function() {
 });
 
 // APP 3: Health Facilities
-
+/**
+ * @function get_health_facilites(query
+ * @description Get health facilities
+ * @param {string} query - Search data from user input
+ */
 function get_health_facilites(query) {
   url = 'https://187mzjvmpd.execute-api.eu-west-1.amazonaws.com/prod?q=' + query + '~2';
   $.ajax({
@@ -246,7 +254,12 @@ function get_health_facilites(query) {
     display_health_facilities(data.hits.hit, data.hits.found);
   });
 }
-
+/**
+ * @function display_health_facilities
+ * @description Display health facilities
+ * @param {array} list - Array of health facilities
+ * @param {int} found_no - Number of found health facilities
+ */
 function display_health_facilities(list, found_no) {
   var response_html = '';
   for (var i = 0; i < list.length; i++) {
@@ -285,8 +298,13 @@ function display_health_facilities(list, found_no) {
   $('#loading').hide();
 }
 
-// TODO: Update this
-
+/**
+ * @function modal_template
+ * @description Creates a template for the modal
+ * @param {string} i - Search query (dodgy-dr, nhif or nearest-specialist)
+ * @param {string} app - Name of the application (Dodgy Doctors, Am I Covered? or Nearest specialist)
+ * @returns {string} - HTML markup
+ */
 function modal_template(i, app) {
   markup = '<div class="modal-dialog" role="document">';
   markup += '<div class="modal-content">';
@@ -306,7 +324,12 @@ function modal_template(i, app) {
   return markup;
 }
 
-// Add Fuzzy Matching for CloudSearch to work well
+/**
+ * @function cloudsearch_add_fuzzy
+ * @description Add Fuzzy Matching for CloudSearch to work well
+ * @param {string} search_query - Search data from user input
+ * @returns {string} - Trimmed searh query
+ */
 function cloudsearch_add_fuzzy(search_query) {
   search_query = search_query.trim();
   var search_terms = search_query.split(' ');
@@ -324,7 +347,12 @@ function cloudsearch_add_fuzzy(search_query) {
   return search_query.trim();
 }
 
-// Function to remove keywords
+/**
+ * @function cloudsearch_remove_keywords
+ * @description Function to remove keywords
+ * @param {string} search_query - Search string from user input
+ * @returns {string} - Trimmed search query
+ */
 function cloudsearch_remove_keywords(search_query) {
   search_query = search_query.trim();
   search_query = search_query.toLowerCase();

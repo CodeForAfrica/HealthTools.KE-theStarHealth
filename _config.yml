@@ -1,10 +1,6 @@
-title: StarHealth | Kenya's Health Portal by the Star
+title: StarHealth | Kenya's leading health portal by the Star
 description: 
 
 url: http://health.the-star.co.ke
 
 timezone: Africa/Nairobi
-exclude: [ _sms ]
-
-# Defined in _includes/analytics.html
-google_analytics: 
