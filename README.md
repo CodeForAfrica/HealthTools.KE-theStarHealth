@@ -1,6 +1,27 @@
-# HealthTools.KE - theStar Health
+<p align="center">
+  <a href="http://health.the-star.co.ke">
+    <img src="https://github.com/Tawakalt/HealthTools.KE-theStarHealth/blob/develop/img/logo.png" width=100 height=100>
+  </a>
 
-HealthTools is a suite of data-driven web and SMS-based tools that help citizens check everything from medicine prices and hospital services, to whether their doctor is a quack or not. The toolkit was pioneered in Kenya, and has since also been deployed in Ghana, Nigeria, and South Africa. The original project can be accessed at: http://health.the-star.co.ke
+  <h3 align="center">HealthTools.KE - theStar Health</h3>
+
+  <p align="center">
+     HealthTools is a suite of data-driven web and SMS-based tools that help citizens check everything from medicine prices and hospital services, to whether their doctor is a quack or not. The toolkit was pioneered in Kenya, and has since also been deployed in Ghana, Nigeria, and South Africa. 
+    <br>
+  <a href="http://health.the-star.co.ke"><strong>Explore Project Here &raquo;</strong></a>
+  </p>
+</p>
+<hr>
+
+## Table of contents
+
+
+- [Installation](#installation)
+- [Testing](#testing)
+- [Contributing](#contributing)
+- [License and Copyright](#license-and-copyright)
+<hr>
+
 
 ## Installation
 The Star Health website is a [Jekyll](https://jekyllrb.com) / Github Pages powered website. To install:
@@ -16,7 +37,9 @@ The Star Health website is a [Jekyll](https://jekyllrb.com) / Github Pages power
   - `cd HealthTools.KE-theStarHealth` 
 
 - Install Ruby globally
-    - `gem install ruby`
+    - `sudo apt-get install ruby` For Linux Users
+    - `brew install ruby` For Mac Users 
+    - <a href="https://rubyinstaller.org/">Download the RubyInstaller</a> - For Windows Users
 
 - Install Jekyll and Bundler gems through RubyGems
     - `gem install jekyll bundler`
@@ -27,12 +50,14 @@ The Star Health website is a [Jekyll](https://jekyllrb.com) / Github Pages power
 - Run the application
     - `jekyll serve`
  - View the application on `localhost:4000`
+ <hr>
 
 ## Testing
 
 <!-- TODO: Needs improvement -->
 
 ...
+<hr>
 
 ## Contributing
 
@@ -45,7 +70,7 @@ Contributions are always welcomed to the project. If you are interested in enhan
 
 ---
 
-### License and Copyright
+## License and Copyright
 
 The MIT License (MIT)
 
@@ -68,3 +93,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+<hr>
