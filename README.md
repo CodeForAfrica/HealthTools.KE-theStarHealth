@@ -7,7 +7,7 @@
 
   <p align="center">
      HealthTools is a suite of data-driven web and SMS-based tools that help citizens check everything from medicine prices and hospital services, to whether their doctor is a quack or not. The toolkit was pioneered in Kenya, and has since also been deployed in Ghana, Nigeria, and South Africa. 
-    <br>
+    <br/><br/>
   <a href="http://health.the-star.co.ke"><strong>Explore Project Here &raquo;</strong></a>
   </p>
 </p>
