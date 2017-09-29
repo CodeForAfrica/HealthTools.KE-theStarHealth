@@ -1,6 +1,6 @@
 <p align="center">
   <a href="http://health.the-star.co.ke">
-    <img src="https://github.com/Tawakalt/HealthTools.KE-theStarHealth/blob/develop/img/logo.png" width=100 height=100>
+    <img src="/img/logo.png" height=100>
   </a>
 
   <h3 align="center">HealthTools.KE - theStar Health</h3>
