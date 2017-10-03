@@ -246,12 +246,12 @@ $(document).ready(function() {
  * @param {string} query - Search data from user input
  */
 function get_health_facilites(query) {
-  url = 'https://187mzjvmpd.execute-api.eu-west-1.amazonaws.com/prod?q=' + query + '~2';
+  url = 'https://api.healthtools.codeforafrica.org/search/health-facilities?q=' + query + '~2';
   $.ajax({
     method: 'GET',
     url: url
   }).success(function(data) {
-    display_health_facilities(data.hits.hit, data.hits.found);
+    display_health_facilities(data.result.hits, data.result.total);
   });
 }
 /**
