@@ -71,6 +71,9 @@ $(document).ready(function() {
       url: url,
       success: function(response) {
         var response_html = ''
+
+
+
         var result = response.result
         var result_no = result.total
         if (result_no > 10) result_no = 10
@@ -82,7 +85,6 @@ $(document).ready(function() {
             response_html += 'Qualification: ' + result.hits[i]._source.qualifications + '<br>';
             response_html += 'Registration date: ' + new Date(result.hits[i]._source.reg_date).toDateString() + '<br>';
             if (i < result_no - 1) response_html += '<hr>';
-            
           }
         } else if (search_type == 'nurse') {
           for (var j = 0; j < result_no; j++) {
@@ -94,7 +96,6 @@ $(document).ready(function() {
         } else {
           // Clinical Officers
           for (var k = 0; k < result_no; k++) {
-            console.log(result.hits[k])
             response_html += 'Name: ' + result.hits[k]._source.name + '<br>';
             response_html += 'Reg no: ' + result.hits[k]._source.reg_no + '<br>';
             response_html += 'Reg date: ' + new Date(result.hits[k]._source.reg_date).toDateString() + '<br>';
@@ -127,33 +128,106 @@ $(document).ready(function() {
 
   $('#grabNHIFDetails').click(function() {
     var hospital_location = $('#county_select option:selected').text();
-    var hospital_type = $('#county_select').val();
-    $('#dname').html('<h4>' + hospital_location + '</h4>');
-    $('#mybox').html('');
-    $('#loading').show();
-    url = 'https://t875kgqahj.execute-api.eu-west-1.amazonaws.com/prod?q=' + hospital_location;
-    $.ajax({
-      url: url,
-      success: function(result) {
-        var response_html = '';
-        for (var i = 0; i < result.hits.hit.length; i++) {
-          response_html += 'Name: ' + result.hits.hit[i].fields.name + '<br>';
-          response_html += 'Service point: ' + result.hits.hit[i].fields.service_point + '<br>';
-          response_html += 'County: ' + result.hits.hit[i].fields.county + '<br>';
-          response_html += '<hr>';
+    var hospital_location_value = $('#county_select').val();
+    var search_type_text = $('#nhif-category option:selected').text();
+    var search_type = $('#nhif-category').val();
+   
+    // validate that the user select the NHIF category and location
+    if (hospital_location_value === "0" || search_type === "0") {
+      $('#dname').html('<h4>Note</h4>' );
+      response_html = '<p style="text-align: center;">';
+      response_html +=  'To find out which facilities your NHIF card will cover <br />';
+      response_html += 'You need to select the NHIF category and a location '
+      response_html += '</p>';
+      $('#mybox').html(response_html);
+      $('#number_found').html('');
+      $('#hospital_location').val('');
+      $('#loading').hide();
+    } else {
+      $('#dname').html('<h4>' + search_type_text + ' in ' + hospital_location + '</h4>');
+      $('#mybox').html('');
+      $('#loading').show();
+      var api_url = `http://localhost:5000/search/${search_type}?q=${hospital_location}`;
+      $.ajax({
+        url: api_url,
+        method:'GET',
+        success: function(response) {
+          var result = response.result
+          var result_no = result.hits.length
+          $('#number_found').html('<h6 class="number_found">' 
+                    + result_no + 
+                    ' result' + 
+                    (result_no > 1 ? 's' : '')
+                     + ' found.</h6>');
+          var response_html = '';
+          var curFacility;
+          if (search_type == 'nhif-outpatient') {
+            for (var i = 0; i < result_no; i++) {
+              curFacility = result.hits[i]._source
+              response_html += 'Hospital Name: ' + curFacility.hospital + '<br>';
+              response_html += 'NHIF Branch: ' + curFacility.nhif_branch + '<br>';
+              response_html += 'Location: ' + curFacility.county + '<br>';
+              if (i < result_no - 1) response_html += '<hr>';
+            }
+          } else if (search_type == 'nhif-inpatient') {
+            for (var j = 0; j < result_no; j++) {
+              curFacility = result.hits[j]._source
+              response_html += 'Hospital Name: ' + curFacility.hospital + '<br>';
+              response_html += 'Beds: ' + curFacility.beds + '<br>';            
+              response_html += 'Category: ' + curFacility.category + '<br>';
+              response_html += 'NHIF Branch: ' + curFacility.branch + '<br>';
+              response_html += 'Postal Address: ' + curFacility.postal_addr + '<br>';
+              response_html += 'Region: ' + curFacility.region + '<br>';
+              if (j < result_no - 1) response_html += '<hr>';
+            }
+          } else {
+            // nhif-inpatient-cs
+            for (var k = 0; k < result_no; k++) {
+              curFacility = result.hits[k]._source
+              response_html += 'Hospital Name: ' + curFacility.hospital + '<br>';
+              response_html += 'NHIF Branch: ' + curFacility.nhif_branch + '<br>';
+              response_html += 'NHIF cover: ' + curFacility.cover + '<br>';
+              response_html += 'Location: ' + curFacility.county + '<br>';
+              response_html += 'Job Group: ' + curFacility.job_group + '<br>';
+              if (k < result_no - 1) response_html += '<hr>';
+            }
+          }
+
+
+          // Not found
+          if (result_no == 0) {
+            response_html += '<p style="text-align: center;">';
+            response_html += `Oops. We could not find any ${toTitleCase(search_type_text)} in ${hospital_location}.`;
+            response_html += '</p><p style="text-align: center;">';
+            response_html += '<small><em><a href="mailto:starhealth@codeforkenya.org" target="_blank">E-mail us</a></em></small>';
+            response_html += '</p>';
+          }
+
+          // Google Analytics Events
+          ga('send', 'event', 'InsuranceHospital', 'search', hospital_location, result.hits.found);
+          ga('theStar.send', 'event', 'InsuranceHospital', 'search', hospital_location, result.hits.found);
+          ga('theStarHealth.send', 'event', 'InsuranceHospital', 'search', hospital_location, result.hits.found);
+          ga('CfAFRICA.send', 'event', 'InsuranceHospital', 'search', hospital_location, result.hits.found);
+
+          $('#mybox').html(response_html);
+          $('#hospital_location').val('');
+          $('#loading').hide();
+        },
+        error: function(error) {
+          $('#dname').html('<h4>Note</h4>' );
+          response_html = '<p style="text-align: center;">';
+          response_html +=  'An error occurred, please try again or end us a mail';
+          response_html += '</p><p style="text-align: center;">';
+          response_html += '<small><em><a href="mailto:starhealth@codeforkenya.org" target="_blank">E-mail us</a></em></small>';
+          response_html += '</p>';
+          response_html += '</p>';
+          $('#number_found').html('');
+          $('#mybox').html(response_html);
+          $('#hospital_location').val('');
+          $('#loading').hide();
         }
-
-        // Google Analytics Events
-        ga('send', 'event', 'InsuranceHospital', 'search', hospital_location, result.hits.found);
-        ga('theStar.send', 'event', 'InsuranceHospital', 'search', hospital_location, result.hits.found);
-        ga('theStarHealth.send', 'event', 'InsuranceHospital', 'search', hospital_location, result.hits.found);
-        ga('CfAFRICA.send', 'event', 'InsuranceHospital', 'search', hospital_location, result.hits.found);
-
-        $('#mybox').html(response_html);
-        $('#hospital_location').val('');
-        $('#loading').hide();
-      }
-    });
+      });
+    }
   });
 
   $('#facility-search').click(function() {
