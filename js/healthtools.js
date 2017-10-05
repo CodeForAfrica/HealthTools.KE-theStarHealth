@@ -71,9 +71,6 @@ $(document).ready(function() {
       url: url,
       success: function(response) {
         var response_html = ''
-
-
-
         var result = response.result
         var result_no = result.total
         if (result_no > 10) result_no = 10
@@ -147,7 +144,8 @@ $(document).ready(function() {
       $('#dname').html('<h4>' + search_type_text + ' in ' + hospital_location + '</h4>');
       $('#mybox').html('');
       $('#loading').show();
-      var api_url = `https://api.healthtools.codeforafrica.org/search/${search_type}?q=${hospital_location}`;
+      var api_url = 'https://api.healthtools.codeforafrica.org/search/' +
+                    search_type + '?q=' + hospital_location;
       $.ajax({
         url: api_url,
         method:'GET',
@@ -204,10 +202,10 @@ $(document).ready(function() {
           }
 
           // Google Analytics Events
-          ga('send', 'event', 'InsuranceHospital', 'search', hospital_location, result.hits.found);
-          ga('theStar.send', 'event', 'InsuranceHospital', 'search', hospital_location, result.hits.found);
-          ga('theStarHealth.send', 'event', 'InsuranceHospital', 'search', hospital_location, result.hits.found);
-          ga('CfAFRICA.send', 'event', 'InsuranceHospital', 'search', hospital_location, result.hits.found);
+          ga('send', 'event', 'NHIF', 'search', hospital_location, result.hits.found);
+          ga('theStar.send', 'event', 'NHIF', 'search', hospital_location, result.hits.found);
+          ga('theStarHealth.send', 'event', 'NHIF', 'search', hospital_location, result.hits.found);
+          ga('CfAFRICA.send', 'event', 'NHIF', 'search', hospital_location, result.hits.found);
 
           $('#mybox').html(response_html);
           $('#hospital_location').val('');
@@ -216,7 +214,7 @@ $(document).ready(function() {
         error: function(error) {
           $('#dname').html('<h4>Note</h4>' );
           response_html = '<p style="text-align: center;">';
-          response_html +=  'An error occurred, please try again or end us a mail';
+          response_html +=  'An error occurred, please try again or send us a mail';
           response_html += '</p><p style="text-align: center;">';
           response_html += '<small><em><a href="mailto:starhealth@codeforkenya.org" target="_blank">E-mail us</a></em></small>';
           response_html += '</p>';
