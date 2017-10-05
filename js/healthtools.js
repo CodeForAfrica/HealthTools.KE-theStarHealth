@@ -147,7 +147,7 @@ $(document).ready(function() {
       $('#dname').html('<h4>' + search_type_text + ' in ' + hospital_location + '</h4>');
       $('#mybox').html('');
       $('#loading').show();
-      var api_url = `http://localhost:5000/search/${search_type}?q=${hospital_location}`;
+      var api_url = `https://api.healthtools.codeforafrica.org/search/${search_type}?q=${hospital_location}`;
       $.ajax({
         url: api_url,
         method:'GET',
