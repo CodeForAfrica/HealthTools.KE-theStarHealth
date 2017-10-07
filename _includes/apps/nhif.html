@@ -5,7 +5,14 @@
         Find out which facilities your NHIF card will cover in your county:<br/><small><em>Can't find a name? Send us an email <a href="mailto:starhealth@codeforkenya.org" target="_blank">starhealth@codeforkenya.org</a></em></small>
     </div>
     <div class="app_bottom">
-        <select id="county_select" class="form-control">
+        <select class="form-control" id="nhif-category" required>
+            <option value="0">Select the NHIF category</option>
+            <option value="nhif-inpatient">NHIF Inpatient Facility</option>
+            <option value="nhif-outpatient">NHIF Outpatient Facility</option>
+            <option value="nhif-outpatient-cs">NHIF Outpatient  CS facility</option>
+        </select>
+        <p> </p>
+        <select id="county_select" class="form-control" required>
             <option value="0">Select Your County</option>
             <option value="1">Baringo</option>
             <option value="2">Bomet</option>
@@ -68,3 +75,4 @@
         </div>
     </div>
 </div>
+

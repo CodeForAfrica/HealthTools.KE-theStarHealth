@@ -1,38 +1,52 @@
-# HealthTools.KE - theStar Health
+<p align="center">
+  <a href="http://health.the-star.co.ke" target="_blank">
+    <img src="/img/logo.png" height=100>
+  </a>
+</p>
 
-HealthTools is a suite of data-driven web and SMS-based tools that help citizens check everything from medicine prices and hospital services, to whether their doctor is a quack or not. The toolkit was pioneered in Kenya, and has since also been deployed in Ghana, Nigeria, and South Africa. The original project can be accessed at: http://health.the-star.co.ke
+<h3 align="center">HealthTools.KE - theStar Health</h3>
+
+<p align="center">HealthTools is a suite of data-driven web and SMS-based tools that help citizens check everything from medicine prices and hospital services, to whether their doctor is a quack or not. The toolkit was pioneered in Kenya, and has since also been deployed in Ghana, Nigeria, and South Africa.</p>
+
+<p align="center"><a href="http://health.the-star.co.ke" target="_blank"><strong>Explore Project Here &raquo;</strong></a></p>
+
+---
+
+## Table of contents
+
+- [Installation](#installation)
+- [Testing](#testing)
+- [Contributing](#contributing)
+- [License and Copyright](#license-and-copyright)
+
+---
 
 ## Installation
-The Star Health website is a [Jekyll](https://jekyllrb.com) / Github Pages powered website. To install:
-- Navigate to a directory using any terminal
-​  
-- Clone this repository in that directory
-​    
-  - Using SSH: `git clone git@github.com:CodeForAfrica/HealthTools.KE-theStarHealth.git`  
-  - Using HTTP: `git clone https://github.com/CodeForAfrica/HealthTools.KE-theStarHealth.git`  
- 
-- Navigate to the cloned repository  
-  
-  - `cd HealthTools.KE-theStarHealth` 
 
-- Install Ruby globally
-    - `gem install ruby`
+This is a [Jekyll](https://jekyllrb.com) powered website hosted on [Github Pages](https://pages.github.com/). To install:
 
-- Install Jekyll and Bundler gems through RubyGems
+1. Install Ruby globally
+    - `sudo apt-get install ruby` For Linux Users
+    - `brew install ruby` For Mac Users 
+    - <a href="https://rubyinstaller.org/">Download the RubyInstaller</a> - For Windows Users
+
+2. Install Jekyll and Bundler gems through RubyGems
     - `gem install jekyll bundler`
 
-- Generate a build folder for the application
-    - `jekyll build`
-
-- Run the application
+3. Inside the cloned repo directory, run the application
     - `jekyll serve`
- - View the application on `localhost:4000`
+ 
+4. You should now be able to access the application on http://localhost:4000
+
+---
 
 ## Testing
 
 <!-- TODO: Needs improvement -->
 
 ...
+
+---
 
 ## Contributing
 
@@ -45,7 +59,7 @@ Contributions are always welcomed to the project. If you are interested in enhan
 
 ---
 
-### License and Copyright
+## License and Copyright
 
 The MIT License (MIT)
 
