@@ -263,7 +263,7 @@ function get_health_facilites(query) {
 function display_health_facilities(list, found_no) {
   var response_html = '';
   for (var i = 0; i < list.length; i++) {
-    data = list[i].fields;
+    data = list[i]._source;
     response_html += '<div class="row">';
     response_html += '<div class="col-md-12">';
     response_html += 'Name: ' + data.name + '<br>';
