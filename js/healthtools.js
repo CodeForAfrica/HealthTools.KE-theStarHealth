@@ -246,7 +246,7 @@ $(document).ready(function() {
  * @param {string} query - Search data from user input
  */
 function get_health_facilites(query) {
-  url = 'https://api.healthtools.codeforafrica.org/search/health-facilities?q=' + query + '~2';
+  url = 'https://api.healthtools.codeforafrica.org/search/health-facilities?q=' + query;
   $.ajax({
     method: 'GET',
     url: url
