@@ -638,3 +638,10 @@ modal-body {
   margin-top:10px;
   margin-bottom:10px;
 }
+
+.number_found {
+  float: right;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
