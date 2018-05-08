@@ -4,4 +4,6 @@ author: theStar, Code for Kenya
 
 url: http://health.the-star.co.ke
 
+api_url: https://api.healthtools.codeforafrica.org  # Dev = http://localhost:5000
+
 timezone: Africa/Nairobi
