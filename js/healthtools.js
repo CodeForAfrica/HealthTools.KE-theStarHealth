@@ -148,7 +148,7 @@ $(document).ready(function() {
       $('#mybox').html('');
       $('#loading').show();
       var api_url = '{{ site.api_url }}/search/' +
-                    search_type + '?q=' + hospital_location;
+                    search_type + '?per_page=1000&q=' + hospital_location;
       $.ajax({
         url: api_url,
         method:'GET',
