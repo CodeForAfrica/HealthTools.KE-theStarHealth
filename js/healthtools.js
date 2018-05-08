@@ -1,3 +1,6 @@
+---
+---
+
 // HealthTools
 
 $(document).ready(function() {
@@ -46,7 +49,7 @@ $(document).ready(function() {
   $('#grabDetails').click(function() {
     var search_query = $('#doctorName').val();
     var search_type = $('#search-type').val();
-    var api_url = 'https://api.healthtools.codeforafrica.org'
+    var api_url = '{{ site.api_url }}'
     var url = '';
     var result_no = '';
 
