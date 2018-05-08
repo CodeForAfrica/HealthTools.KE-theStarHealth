@@ -147,7 +147,7 @@ $(document).ready(function() {
       $('#dname').html('<h4>' + search_type_text + ' in ' + hospital_location + '</h4>');
       $('#mybox').html('');
       $('#loading').show();
-      var api_url = 'https://api.healthtools.codeforafrica.org/search/' +
+      var api_url = '{{ site.api_url }}/search/' +
                     search_type + '?q=' + hospital_location;
       $.ajax({
         url: api_url,
@@ -321,7 +321,7 @@ $(document).ready(function() {
  * @param {string} query - Search data from user input
  */
 function get_health_facilites(query) {
-  url = 'https://api.healthtools.codeforafrica.org/search/health-facilities?q=' + query;
+  url = '{{ site.api_url }}/search/health-facilities?q=' + query;
   $.ajax({
     method: 'GET',
     url: url
