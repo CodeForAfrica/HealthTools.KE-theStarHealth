@@ -96,11 +96,11 @@ $(document).ready(function() {
         } else {
           // Clinical Officers
           for (var k = 0; k < result_no; k++) {
-            response_html += 'Name: ' + result.hits[k]._source.name + '<br>';
-            response_html += 'Reg no: ' + result.hits[k]._source.reg_no + '<br>';
-            response_html += 'Reg date: ' + new Date(result.hits[k]._source.reg_date).toDateString() + '<br>';
-            response_html += 'Address: ' + result.hits[k]._source.address + '<br>';
-            response_html += 'Qualification: ' + result.hits[k]._source.qualifications + '<br>';
+            response_html += 'Name: ' + result.hits[k].name + '<br>';
+            response_html += 'Reg no: ' + result.hits[k].reg_no + '<br>';
+            response_html += 'Reg date: ' + new Date(result.hits[k].reg_date).toDateString() + '<br>';
+            response_html += 'Address: ' + result.hits[k].address + '<br>';
+            response_html += 'Qualification: ' + result.hits[k].qualifications + '<br>';
             if (k < result_no - 1) response_html += '<hr>';
           }
         }
